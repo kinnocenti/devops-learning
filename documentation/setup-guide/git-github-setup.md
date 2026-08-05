@@ -27,7 +27,7 @@ git config --global init.defaultBranch main   # Standard-Branch 'main' für neue
 git --version   # Versionsprüfung
 ```
 
-## SSH Authentication 
+## SSH-Authentifizierung 
 
 SSH-Verbindung vom Client zu GitHub.
 
