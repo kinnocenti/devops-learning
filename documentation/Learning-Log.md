@@ -1,5 +1,7 @@
 # Learning Log
 
+Hinweis: Im Learning Log wird nicht die Erstellung von Setups oder anderen Dateien festgehalten, sondern lediglich die praktischen Schritte.
+
 ## 29.07.2026
 
 - Mint Cinnamon 22.3 (Zena) installiert und konfiguriert
@@ -24,3 +26,7 @@
 - GitHub-Konto eingerichtet
 - SSH-Authentifizierung
 - Repository für DevOps-Learning erstellt
+
+## 10.08.2026
+
+- 

@@ -172,7 +172,7 @@ Hinweis: Docker compose ohne Bindestrich.
 docker run -d \   # Container erzeugen
 --name nginx \   # Containername vergeben
 -p 8080:80 \   # Hostport/Containerport konfigurieren
-nginx   # Image für den Container
+nginx   # Image des Containers
 
 docker ps    # Laufende Container anzeigen
 ```
