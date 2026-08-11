@@ -26,9 +26,15 @@ sudo apt-get update   # Aktualisierung verfügbarer Paketinformationen
 sudo apt-get install dbeaver-ce   # installiert DBeaver
 ```
 
-## DBeaver Konfiguration
+## Installation prüfen
 
-SQLite als Datenbankverbindung auswählen.
+```bash
+dbeaver --version   # Versionsnummer anzeigen lassen
+
+apt policy dbeaver-ce   # zeigt an welche Version installiert ist, welche Version als nächstes installiert werden kann und aus welcher Paketquelle die Daten stammen 
+```
+
+## DBeaver Konfiguration
 
 .gitignore-Datei erstellen und entsprechenden Inhalt einfügen:
 

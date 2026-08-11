@@ -1,6 +1,6 @@
 # Learning Log
 
-Hinweis: Im Learning Log wird nicht die Erstellung von Setups oder anderen Dateien festgehalten, sondern lediglich die praktischen Schritte.
+Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder anderen Dateien festgehalten, sondern lediglich die Durchführung der praktischen Schritte.
 
 ## 29.07.2026
 
@@ -34,4 +34,4 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Setups oder anderen Datei
 
 ## 11.08.2026
 
-- 
+- Datenbank taskmanager.db mit DBeaver erstellt und getestet

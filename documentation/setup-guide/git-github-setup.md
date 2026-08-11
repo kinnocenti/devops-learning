@@ -46,7 +46,7 @@ cat ~/.ssh/id_ed25519.pub   # öffentlichen Schlüssel anzeigen lassen
 
 ssh -T git@github.com   # Verbindung testen
 
-#Vertrauensabfrage mit 'yes' bestätigen
+# Vertrauensabfrage mit 'yes' bestätigen
 ```
 
 ## Erstes Repository
