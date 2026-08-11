@@ -18,6 +18,7 @@ rm packages.microsoft.gpg
 
 ```bash
 sudo apt update
+
 sudo apt install code
 ```
 

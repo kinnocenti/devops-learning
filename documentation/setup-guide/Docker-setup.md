@@ -1,6 +1,7 @@
 # Docker Einrichtung
 
 ## Voraussetzungen
+
 - Linux 
 - Internetverbindung
 - Benutzer mit sudo-Rechten
@@ -105,7 +106,7 @@ docker-buildx-plugin \
 docker-compose-plugin
 ```
 
-Damit werden installiert:
+Installation von:
     • Docker Engine
     • Docker CLI
     • containerd

@@ -29,4 +29,9 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Setups oder anderen Datei
 
 ## 10.08.2026
 
+- Planung des Projektes Taskmanager (Webanwendung)
+- DBeaver version 26.1.4.202608021747 installiert und konfiguriert
+
+## 11.08.2026
+
 - 

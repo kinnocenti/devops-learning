@@ -15,8 +15,6 @@ Einrichtung einer lokalen Git-Umgebung und Verbindung zu GitHub über SSH zur Ve
 
 ## Lokale Git-Konfiguration
 
-Git wurde konfiguriert.
-
 ```bash
 git config --global user.name "NAME"   # Benutzernamen für Commits festlegen
 
@@ -29,7 +27,7 @@ git --version   # Versionsprüfung
 
 ## SSH-Authentifizierung 
 
-SSH-Verbindung vom Client zu GitHub.
+SSH-Verbindung vom Client zu GitHub authentifizieren.
 
 ```bash
 ssh-keygen -t ed25519 -C "email@example.com"   # SSH-Schlüssel generieren
@@ -47,6 +45,7 @@ cat ~/.ssh/id_ed25519.pub   # öffentlichen Schlüssel anzeigen lassen
 # cat-Ausgabe kopieren und in GitHub unter 'Settings → SSH and GPG keys → New SSH key' einfügen und 'Add SSH key' anklicken. 
 
 ssh -T git@github.com   # Verbindung testen
+
 #Vertrauensabfrage mit 'yes' bestätigen
 ```
 
