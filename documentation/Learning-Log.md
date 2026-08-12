@@ -35,3 +35,12 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 ## 11.08.2026
 
 - Datenbank taskmanager.db mit DBeaver erstellt und getestet
+
+## 12.08.2026
+
+- Python, .venv und Flask installiert
+- Test-Flask-Anwendung erstellt und getestet
+
+## 
+
+- 

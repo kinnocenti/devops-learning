@@ -54,7 +54,7 @@ VALUES
 -- Prüfen, ob Daten gespeichert wurden:
 SELECT * FROM tasks;
 
--- Aufgabe 'Docker Tutorial teil 2' Deadline hinzufügen:
+-- Aufgabe 'Docker Tutorial Teil 2' Deadline hinzufügen:
 UPDATE tasks
 SET deadline = '2026-08-12 20:00'
 WHERE id = 3;
@@ -129,3 +129,45 @@ VALUES (
     4,
     1
 );
+
+-- Abfrage der Tabelle tasks nach unerledigten Aufgaben:
+SELECT id, title, status, priority, deadline, group_id
+FROM tasks
+WHERE status IN ('open', 'in_progress');
+
+-- Anfrage der Tabelle tasks nach erledigten Aufgaben:
+SELECT id, title, status, priority, deadline, group_id
+FROM tasks
+WHERE status = 'completed';
+
+-- Abfrage der Tabelle tasks nach den Aufgaben und ihren Gruppennamen:
+SELECT
+    tasks.id,
+    tasks.title,
+    groups.name AS group_name
+FROM tasks
+LEFT JOIN groups
+    ON tasks.group_id = groups.id;
+
+-- Self-JOIN, Tabelle tasks wird mit sich selbst verbunden für die Abfrgae der abhängige Aufgabe und von der sie abhängt: 
+SELECT
+    task.title AS task,
+    dependency.title AS depends_on
+FROM task_dependencies
+JOIN tasks AS task
+    ON task_dependencies.task_id = task.id
+JOIN tasks AS dependency
+    ON task_dependencies.depends_on_task_id = dependency.id;
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-# Datenbank Modell und Erstellung
+# Datenbank Erstellung und Testung
 
 ## Datenbankmodell
 
@@ -101,3 +101,146 @@ CREATE TABLE task_dependencies (
 
 Die Datenbank direkt in dem Lern-Repository von VScode abspeichern.
 Hier wurde die Datenbank im 'taskmanager-database'-Ordner abgespeichert. In den beiden Dateien 'taskmanager.db' (enthält die Daten) und 'schema.sql' (enthält den Aufbau der Datenbank).
+
+## Datenbank für die Testung vorbereiten
+
+```bash
+# Gruppen anlegen:
+INSERT INTO groups (name)
+VALUES
+    ('Docker'),
+    ('Kubernetes'),
+    ('Linux');
+
+# Prüfen, ob Daten gespeichert wurden:
+SELECT * FROM groups;
+
+# Aufgaben erstellen für die Testung:
+INSERT INTO tasks (
+    title,
+    status,
+    priority,
+    group_id
+)
+VALUES
+    ('Docker installieren', 'completed', 2, 1),
+    ('Docker Tutorial Teil 1', 'in_progress', 2, 1),
+    ('Docker Tutorial Teil 2', 'open', 3, 1),
+    ('Linuxbefehlsübersicht erstellen', 'open', 1, NULL);
+
+# Prüfen, ob Daten gespeichert wurden:
+SELECT * FROM tasks;
+```
+
+## Testung der Datenbank
+
+```bash
+# Aufgabe 'Docker Tutorial Teil 2' Deadline hinzufügen:
+UPDATE tasks
+SET deadline = '2026-08-12 20:00'
+WHERE id = 3;
+
+# Prüfen, ob Deadline eingefügt wurde:
+SELECT id, title, deadline
+FROM tasks;
+
+# Aufgabenabhängigkeit erstellen:
+INSERT INTO task_dependencies (
+    task_id,
+    depends_on_task_id
+)
+VALUES (
+    3,
+    2
+);
+
+# Prüfen, ob Abhängigkeit angelegt wurde:
+SELECT * FROM task_dependencies;
+
+# Neue Aufgabe anlegen für Aufgabe mit mehreren Abhängigkeiten:
+INSERT INTO tasks (
+    title,
+    status,
+    priority,
+    group_id
+)
+VALUES (
+    'Docker Compose Grundlagen',
+    'open',
+    2,
+    1
+);
+
+# IDs in tasks anzeigen lassen:
+SELECT id, title
+FROM tasks;
+
+# Zwei Abhängigkeiten für Docker Compose Grundlagen anlegen:
+INSERT INTO task_dependencies (
+    task_id,
+    depends_on_task_id
+)
+VALUES
+    (5, 2),
+    (5, 3);
+
+# Prüfen, ob Aufgabe mit mehrehen Abhängigkeiten erstellt wurde:
+SELECT * FROM task_dependencies;
+
+# Erster Constraint, eine bestehende Abhängigkeit soll erneut erstellt werden:
+INSERT INTO task_dependencies (
+    task_id,
+    depends_on_task_id
+)
+VALUES (
+    5,
+    2
+);
+
+# Zweiter Constraint, nicht vorhandene Priorität 4 vergeben bei einer neuen Aufgabe:
+INSERT INTO tasks (
+    title,
+    status,
+    priority,
+    group_id
+)
+VALUES (
+    'Test ungültige Priorität',
+    'open',
+    4,
+    1
+);
+
+# Abfrage der Tabelle tasks nach unerledigten Aufgaben:
+SELECT id, title, status, priority, deadline, group_id
+FROM tasks
+WHERE status IN ('open', 'in_progress');
+
+# Anfrage der Tabelle tasks nach erledigten Aufgaben:
+SELECT id, title, status, priority, deadline, group_id
+FROM tasks
+WHERE status = 'completed';
+
+# Abfrage der Tabelle tasks nach den Aufgaben und ihren Gruppennamen:
+SELECT
+    tasks.id,
+    tasks.title,
+    groups.name AS group_name
+FROM tasks
+LEFT JOIN groups
+    ON tasks.group_id = groups.id;
+
+# Self-JOIN, Tabelle tasks wird mit sich selbst verbunden für die Abfrgae der abhängige Aufgabe und von der sie abhängt: 
+SELECT
+    task.title AS task,
+    dependency.title AS depends_on
+FROM task_dependencies
+JOIN tasks AS task
+    ON task_dependencies.task_id = task.id
+JOIN tasks AS dependency
+    ON task_dependencies.depends_on_task_id = dependency.id;
+```
+
+## Ergebnis der Testung
+
+Die Datenbank ist konsistent, alle Abfragen erzeugen die gewünschten Ausgaben. Dabei werden auch die Abhängikeiten zwischen Aufgaben und die Status wie geplant abgebildet. 
