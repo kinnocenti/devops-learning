@@ -1,6 +1,8 @@
 # Entwicklung der Flask-Anwendung
 
-Hier werden die Entwicklungsschritte an der Flask-Anwendung zum näheren Verständnis erklärt.
+Hier werden die Entwicklungsschritte an der Flask-Anwendung zum näheren Verständnis erklärt und auf ienem Blick dargestellt.
+
+Anmerkung: Versionierung wird regulär mit 'git commit' durchgeführt.
 
 ## Erste Test-Flask-Anwendung
 
@@ -14,7 +16,15 @@ app = Flask(__name__)   # Flask-Anwendung erzeugen
 @app.route("/")   # wenn / aufrufen wird, soll home() ausgeführt werden
 def home():   # home()-Funktion
     return "Hallo vom Taskmanager!"   # liefert Text als HTTP-Antwort
+
+# mit folgenden Befehl ausführen
+flask --app app run
+
+# im Browser folgenden eingeben
+http://127.0.0.1:5000/
 ```
+
+Hinweis: Der Befehl zum Ausführen des Codes und die Eingabe der oben aufgeführten URL müssen nach jedem folgenden Code durchgeführt werden. Sie werden im Folgenden nicht wiederholt.
 
 Zeigt folgende Abläufe an:
 - Flask läuft
@@ -22,7 +32,7 @@ Zeigt folgende Abläufe an:
 - Browser kann mit Python-Anwendung kommunizieren
 - der Text wird als HTTP-Anwort zurückgeliefert
 
-Ablauf:
+Ablauf mit HTTP:
 
 Browser
    │
@@ -109,7 +119,7 @@ def home():
     return render_template("index.html")   # Referenzierung auf index.html 
 ```
 
-Aufbau:
+Aufbau mit Templates:
 
 Browser
    ↑
@@ -144,3 +154,91 @@ Flask
           │
           ▼
        Darstellung
+
+## Erster Schritt von 'HTML-Datei' zu 'dynamischer Webanwendung' 
+
+In diesem Schritt wird ein statischer Wert zu einem dynamischen Wert im HTML-Template mit Hilfe von Jinja.
+
+In app.py die letzte Zeile ändern:
+
+```bash
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template("index.html", name="Taskmanager")   # diese Zeile hat sich geändert, damit wird dem Template ein Wert mitgegeben: name = "Taskmanager"
+```
+
+In index.html die siebte Zeile ändern:
+
+```bash
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Taskmanager</title>
+</head>
+
+<body>
+    <h1>{{ name }}</h1>   # diese Zeile hat sich geändert, hier wird der Wert der Template-Variable 'name' eingesetzt
+    <p>Willkommen bei unserem Taskmanager!</p>
+</body>
+
+</html>
+```
+
+Mit der Template-Engine Jinja wird das statische HTML dynamisch. Statt des statischen Eintrags Taskmanager wird {{ name }} eingefügt und damit kommt Jinja zum Einsatz. Der Wert der an dieser Stelle eingesetzt wird, wird aus dem Python-Code der Datei 'app.py' geholt, eingefügt und wird per HTTP an den Browser übergeben.
+
+Ablauf mit Jinja:
+
+Python
+   │
+   │ Daten
+   ▼
+Jinja
+   │
+   │ setzt Daten in Template ein
+   ▼
+HTML
+   │
+   ▼
+Browser
+
+Gesamter Ablauf:
+
+    SERVER
+
+Python / Flask
+      │
+      │ name = "Taskmanager"
+      ▼
+Jinja Template Engine
+      │
+      │ verarbeitet
+      ▼
+templates/index.html
+      │
+      │ {{ name }}
+      ▼
+fertiges HTML
+      │
+      │ HTTP Response
+      ▼
+
+    BROWSER
+
+      │
+      │ empfängt HTML
+      ▼
+Browser rendert HTML
+      |
+      ▼
+┌──────────────────┐
+│ Taskmanager      │
+│                  │
+│ Willkommen bei   │
+│ unserem          │
+│ Taskmanager!     │
+└──────────────────┘
