@@ -19,7 +19,7 @@ python3 –version   # Version prüfen
 
 sudo apt install python3.12-venv   # .venv installieren   
 
-python3 -m venv .venv   # mit .venv virtuelle Umgebung erzeugen
+python3 -m venv .venv   # mit .venv virtuelle Umgebung erstellen
 
 source .venv/bin/activate   # die virtuelle Umgebung aktivieren
 ```
@@ -57,12 +57,12 @@ Linux Mint
 In VScode im Ordner 'taskmanager' eine neue Datei erstellen 'app.py'.
 
 Folgenden Code in 'app.py' einfügen:
+(version 1, siehe Commit 77ba619)
 
 ```bash
 from flask import Flask
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def home():
