@@ -206,7 +206,7 @@ HTML
    ▼
 Browser
 
-Gesamter Ablauf:
+Gesamter Datenfluss:
 
     SERVER
 
@@ -242,3 +242,90 @@ Browser rendert HTML
 │ unserem          │
 │ Taskmanager!     │
 └──────────────────┘
+
+## Nächste Schritte mit Jinja
+
+Zuvor wurde eine Wert mit Jinja an HTML weitergegeben. Jetzt wird eine Liste mit mehreren Werten weitergegeben.
+
+Die app.py-Datei wird wie folgt angepasst:
+
+```bash
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+tasks = [   # hier werden die Werte eingefügt unter dem Namen 'tasks'
+    "Docker installieren",
+    "Docker Tutorial Teil 1",
+    "Docker Tutorial Teil 2",
+    "Linuxbefehlsübersicht erstellen",
+    "Docker Compose Grundlagen"
+]
+
+@app.route("/")
+
+def home():
+    return render_template(
+        "index.html", 
+        name="Taskmanager",   # Jinja-Variable -> fester Python-Wert  
+        tasks=tasks   # Jinja-Variable -> Python-Variable
+    )
+```
+
+Aufbau:
+
+Python
+  │
+  ├── name  → "Taskmanager"
+  │
+  └── tasks → Python-Liste
+          ↓
+   render_template()
+          ↓
+        Jinja
+
+Die index.html-Datei anpassen:
+
+```bash
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Taskmanager</title>
+</head>
+
+<body>
+    <h1>{{ name }}</h1>
+    <p>Willkommen bei unserem Taskmanager!</p>
+</body>
+
+<ul>   # HTML-Block für eine ungeordnete Liste
+    {% for task in tasks %}   # Jinja-Schleife: für jedes Element in 'tasks'
+    <li>{{ task }}</li>   # aktuelles Element 'task' wird als Listeneintrag ausgegeben
+    {% endfor %}   # Ende der Jinja-for-Schleife
+</ul>   # Ende der HTML-Liste
+
+</html>
+```
+
+Hinweis zu 'task': Die Jinja-for-Schleife iteriert über die von Python übergebene Aufgabenliste. task bezeichnet dabei jeweils das aktuell bearbeitete Element.
+
+Datenfluss:
+
+Python
+  │
+  │ tasks = [...]
+  ▼
+Flask
+  │
+  │ tasks=tasks
+  ▼
+Jinja
+  │
+  │ for task in tasks
+  ▼
+HTML
+  │
+  │ <li>{{ task }}</li>
+  ▼
+Browser

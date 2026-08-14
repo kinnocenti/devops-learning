@@ -1,6 +1,6 @@
 # Learning Log
 
-Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder anderen Dateien festgehalten, sondern lediglich die Durchführung der praktischen Schritte.
+Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder anderen Dateien festgehalten, sondern lediglich die Durchführung der praktischen Schritte. Theorie wird on the fly mit den praktischen Schritten, da wo erforderlich ergänzt und vertieft.
 
 ## 29.07.2026
 
@@ -14,7 +14,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 ## 01.08.2026
 
 - Docker-Tutorial begonnen
-- Feststellung: Implementierung einer Entwicklungsumgebung notwendig
+- Feststellung: Implementierung einer Entwicklungsumgebung notwendig und Webanwendung planen
 - Plan für Implementierung der Entwicklungsumgebung erstellt 
 
 ## 02.08.2026
@@ -41,6 +41,12 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 - Python, .venv und Flask installiert
 - Test-Flask-Anwendung erstellt und getestet
 
-## 
+## 13.08.2026
 
-- 
+- HTML in Test-Flask-Anwendung eingefügt
+- HTML-Template erstellt, Separierung von Python/Flask
+- dynamische HTML-Templates mit Jinja
+
+## 14.08.2026
+
+- Jinja: Python-Liste an Template übergeben und mit for-Schleife dynamisch dargestellt

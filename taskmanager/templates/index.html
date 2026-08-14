@@ -10,4 +10,10 @@
     <p>Willkommen bei unserem Taskmanager!</p>
 </body>
 
+<ul>
+    {% for task in tasks %}
+    <li>{{ task }}</li>
+    {% endfor %}
+</ul>
+
 </html>
