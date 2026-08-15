@@ -50,3 +50,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 ## 14.08.2026
 
 - Jinja: Python-Liste an Template übergeben und mit for-Schleife dynamisch dargestellt
+
+## 15.08.2026
+
+- Erste Schritte der Datenbankeinbindung bis sqlite3.Row

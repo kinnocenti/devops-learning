@@ -12,7 +12,11 @@
 
 <ul>
     {% for task in tasks %}
-    <li>{{ task }}</li>
+    <li>
+        {{ task["title"] }}
+        – Status: {{ task["status"] }}
+        – Priorität: {{ task["priority"] }}
+    </li>
     {% endfor %}
 </ul>
 
