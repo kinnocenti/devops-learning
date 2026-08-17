@@ -1,6 +1,6 @@
 # DBeaver Installation
 
-Für das Taskmanager-Projekt wird eine Datenbank benötigt.
+Für das Taskmanager-Projekt wird eine SQLite-Datenbank benötigt. Darum wird als SQL-Client DBeaver installiert. 
 
 ## Signaturschlüssel installieren
 
@@ -36,7 +36,7 @@ apt policy dbeaver-ce   # zeigt an welche Version installiert ist, welche Versio
 
 ## DBeaver Konfiguration
 
-.gitignore-Datei erstellen und entsprechenden Inhalt einfügen:
+'.gitignore'-Datei erstellen und entsprechenden Inhalt einfügen:
 
 ```bash
 touch .gitignore   # Datei erstellen
@@ -44,7 +44,7 @@ touch .gitignore   # Datei erstellen
 taskmanager/taskmanager.db   # Inhalt der Datei
 ```
 
-Hinweis: Mit der .gitignore-Datei wird verhindert, dass die Datenbank von Git an GitHub weitergegeben wird.
+Hinweis: Mit der '.gitignore'-Datei wird verhindert, dass die Datenbank von Git an GitHub weitergegeben wird.
 
 ## Check, ob Git die Datenbank ignoriert
 
@@ -53,4 +53,5 @@ git check-ignore -v taskmanager/taskmanager.db
 ```
 
 Gewünschte Ausgabe:
+
 .gitignore:1:taskmanager/taskmanager.db    taskmanager/taskmanager.db

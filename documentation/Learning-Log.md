@@ -1,6 +1,6 @@
 # Learning Log
 
-Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder anderen Dateien festgehalten, sondern lediglich die Durchführung der praktischen Schritte. Theorie wird on the fly mit den praktischen Schritten, da wo erforderlich ergänzt und vertieft.
+Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder anderen Dateien festgehalten, sondern lediglich die Durchführung der praktischen Schritte. Theorie wird on the fly mit den praktischen Schritten erarbeitet und da wo erforderlich ergänzt und vertieft.
 
 ## 29.07.2026
 

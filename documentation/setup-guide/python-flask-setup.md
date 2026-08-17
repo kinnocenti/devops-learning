@@ -1,5 +1,7 @@
 # Python (.venv) und Flask Installation und Test-Flask-Anwendung
 
+Für die Entwicklung des 'Taskmanagers' wird Python, eine virtuelle Umgebung (.venv) und Flask benötigt. In diesem Abschnitt werden die entsprechenden Installationen und die Erstellung der 'Test-Flask_Anwendung' aufgezeigt. 
+
 ## Python installieren
 
 ```bash
@@ -24,7 +26,7 @@ python3 -m venv .venv   # mit .venv virtuelle Umgebung erstellen
 source .venv/bin/activate   # die virtuelle Umgebung aktivieren
 ```
 
-Hinweis: Wenn 'source .venv/bin/activate' ausgeführt wird, steht dann vor dem Prompt im Terminal '(.venv)'. Der Terminal greift dann auf die Python-Umgebung zu.
+Hinweis: Wenn ```bash source .venv/bin/activate ``` ausgeführt wird, steht vor dem Prompt im Terminal '(.venv)'. Der Terminal greift dann auf die Python-Umgebung zu.
 
 ## Flask installieren
 
@@ -54,10 +56,9 @@ Linux Mint
 
 ## Test-Flask-Anwendung
 
-In VScode im Ordner 'taskmanager' eine neue Datei erstellen 'app.py'.
+In VScode im Ordner 'taskmanager' eine neue Datei 'app.py' erstellen.
 
 Folgenden Code in 'app.py' einfügen:
-(version 1, siehe Commit 77ba619)
 
 ```bash
 from flask import Flask
@@ -72,16 +73,18 @@ def home():
 Im Terminal eingeben:
 
 ```bash
-flask --app app run   # damit läuft app.py
+flask --app app run   # damit wird 'app.py' ausgeführt
 ```
 
 Im Browser eingeben:
 
 http://127.0.0.1:5000  
 
-Damit wird im Browser 'Hallo vom Taskmanager!' angezeigt.
+Ausgabe im Browser:
 
-Hinweis: Die Warnung im Terminal ist kein Problem.
+Hallo vom Taskmanager!
+
+Hinweis: Die Warnung im Terminal muss nicht weiter beachtet werden, da sie lediglich auf die Verwendung des integrierten Servers hinweist.
 Nachdem 'http://127.0.0.1:5000' im Browser eingegeben wurde, sind im Terminal zwei GET-Anfragen vom Browser zu sehen.
 
 Ablauf zum Verständnis:

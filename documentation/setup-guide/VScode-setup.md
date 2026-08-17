@@ -42,7 +42,7 @@ Weitere Konfigurationen:
 ## Tipp
 
 ```bash
-code –list-extensions    # Extensions auflisten lassen
+code –list-extensions   # Extensions auflisten lassen
 
 code --list-extensions > vscode-extensions.txt   # Extensions in Textdatei speichern
 ```

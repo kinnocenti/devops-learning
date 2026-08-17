@@ -1,19 +1,19 @@
 # Datenbankeinbindung
 
-In diesem Abschnitt wird die Einbindung der Datenbank Schritt für Schritt durchlaufen. Damit wird die Brücke zwischen Datenbank und Webanwendung geschlagen. Die Aufgaben werden nicht mehr aus einer Python-Liste geladen, sondern per SQL aus SQLite abgefragt, von Flask verarbeitet und anschließend über Jinja im Browser dargestellt. Dabei lernen wir auch, wie wir auf einzelne Werte eines Datenbankdatensatzes zugreifen können.
+In diesem Abschnitt wird die Einbindung der Datenbank Schritt für Schritt durchlaufen. Damit wird die Brücke zwischen Datenbank und Webanwendung geschlagen. Die Aufgaben werden nicht mehr aus einer Python-Liste geladen, sondern per SQL aus SQLite abgefragt, von Flask verarbeitet und anschließend über Jinja im Browser dargestellt. Dabei lernen wir auch, wie auf einzelne Werte eines Datenbankdatensatzes zugriffen werden kann.
 
 ## SELECT-Abfrage und Ergebnis in Python einbinden
 
 Folgenden Ablauf ist das Ziel:
 
-            SQL (SELECT)
-Python ─────────────────────► SQLite
-                               │
-                               │ Ergebnis
-                               ▼
-Python ◄──────────────────── cursor.fetchall()
+          SQL (SELECT)
+Python ─────────────────► SQLite
+                             │
+                             │ Ergebnis
+                             ▼
+Python ◄──────────────── cursor.fetchall()
 
-Zum besseren Verständnis wird zunächst eine Testdatei erstellt, um das Holen der Daten aus der Datenbank zu verdeutlichen.
+Zum besseren Verständnis wird zunächst eine Testdatei erstellt, um das Abfragen der Daten aus der Datenbank zu verdeutlichen.
 
 Im Ordner 'taskmanager' die Datei 'databasetest.py' erstellen und folgenden Code einfügen:
 
@@ -26,9 +26,9 @@ cursor = connection.cursor()   # Cursor holen, das aufgerufene Cursor-Objekt wir
 
 cursor.execute("SELECT * FROM tasks")   # Abfrage 'SELECT * FROM tasks' ausführen
 
-tasks = cursor.fetchall()   # fetchall() holt alle Ergebniszeilen der Abfrage vom Cursor, liefert sie an Python zurück und speichert sie in 'tasks'
+tasks = cursor.fetchall()   # 'fetchall()' holt alle Ergebniszeilen der Abfrage vom Cursor, liefert sie an Python zurück und speichert sie in 'tasks'
 
-print(tasks)   # Inhalt der Variable 'tasks' im Terminal ausgeben
+print(tasks)   # Inhalt von 'tasks' im Terminal ausgeben
 
 connection.close()   # bestehende Verbindung zur Datenbank wird geschlossen
 ```
@@ -43,7 +43,7 @@ source .venv/bin/activate   # die virtuelle Umgebung aufrufen
 python databasetest.py   # den Code aus 'databasetest.py' ausführen
 ```
 
-Da die Testdaten momentan aus fünf Aufgaben bestehen wurden entsprechend fünf Tupel mit jeweils dem Inhalt aller Spalten der Tabelle 'task' aus der Datenbank. 
+Da die Testdaten momentan aus fünf Aufgaben bestehen, wurden entsprechend fünf Tupel mit jeweils dem Inhalt aller Spalten der Tabelle 'task' aus der Datenbank abgefragt. 
 
 Ausgabe (die Tupel stehen jeweils in den ()-Klammern):
 
@@ -79,7 +79,7 @@ Python
 
 ## Von print() zu Flask und Jinja
 
-In diesem Kapitel wird in den vorherigen Code Flask integriert. Im nächsten Schritt wird dann Jinja mit hinzugenommen, um dann mit HTML eine Ausgabe im Browser zu erzeugen. 
+In diesem Kapitel wird der Code aus 'databasetest.py' in die 'app.py'-Datei integriert. Damit wird die Datenbank eingebunden. Zudem wird die Python-Liste gelöscht, da die Daten aus der Datenbank abgefragt und nicht mehr hartkodiert werden. Im nächsten Schritt wird die index.htlml angepasst. 
 
 Vorher ohne Flask:
 
@@ -95,9 +95,9 @@ print()
    ↓
 Terminal
 
-Jetzt machen wir den Zwischenschritt und integrieren den Code der 'databasetest.py'-Datei in die Datei 'app.py'.
+Code der 'databasetest.py'-Datei wird in die Datei 'app.py' integriert.
 
-Nachher mit Flask und Jinja:
+Nach der Code-Integration:
 
 SQLite
    ↓
@@ -184,7 +184,7 @@ Browser
 
 ## Wert aus einer Spalte ausgeben
 
-Damit nur ein Wert aus einer Spalte im Tupel ausgegeben wird, muss entsprechend eine Eingrenzung der Ausgabewerte in der 'index.html'-Datei vorgenommen werden. Dazu wird beid er Variable 'task' der index [1] angehängt. Damit wird aus jedem Tupel nur der Wert von Position 1 ausgegeben.
+Damit nur ein Wert aus einer Spalte im Tupel ausgegeben wird, muss entsprechend eine Eingrenzung der Ausgabewerte in der 'index.html'-Datei vorgenommen werden. Dazu wird bei der Variable 'task' der index [1] angehängt. Damit wird aus jedem Tupel nur der Wert von Position 1 ausgegeben.
 
 Dafür muss in der Datei 'index.html' folgende Zeile geändert werden:
 
@@ -231,9 +231,9 @@ SQLite ──→ Python ──→ tasks
 
 ## Vom Index [1] zur sqlite3.Row
 
-Da die Verwendung von Indizes zu Problemen führen kann, wird das Zeilenformat 'sqlite3.Row' für die Ausgabe der Tupel verwendet. Dafür wird die Eigenschaft 'row_factory' gesetzt. 'sqlite3.Row' ist ein von Python bereitgestellter Typ für Datenbankzeilen, der es ermöglicht, die Werte über die Spaltennamen anzusprechen.
+Da die Verwendung von Indizes zu Problemen führen kann, wird das Zeilenformat 'sqlite3.Row' für die Ausgabe der Tupel verwendet. Dafür wird die Eigenschaft 'row_factory' bei dem Verbindungsobjekt 'connection' desetzt. 'sqlite3.Row' ist ein von Python bereitgestellter Typ für Datenbankzeilen, der es ermöglicht, die Werte über die Spaltennamen anzusprechen.
 
-In der Datei 'app.py' muss eine Zeile hinzugefügt werden:
+In der Datei 'app.py' muss entsprechend eine Zeile hinzugefügt werden:
 
 Vorher:
 
@@ -246,7 +246,7 @@ Nachher:
 
 ```bash
     connection = sqlite3.connect("taskmanager.db")
-    connection.row_factory = sqlite3.Row   # bei dem Objekt 'connection' wird die Eigenschaft 'row_factory' gesetzt und das Zeilenformat 'sqlite3.Row' verwendet
+    connection.row_factory = sqlite3.Row   # diese Zeile hinzufügen, bei dem Objekt 'connection' wird die Eigenschaft 'row_factory' gesetzt und das Zeilenformat 'sqlite3.Row' verwendet
 
     cursor = connection.cursor()
 ```
@@ -265,7 +265,7 @@ Nachher:
     <li>{{ task["title"] }}</li>
 ```
 
-Damit ist beim zukünftigen Lesen des Codes direkt ersichtlich welche Spalte abgerufen wird. Mit einem Index müsste bekannt sein, welcher Spaltenname für die Zahl steht.
+Damit ist beim zukünftigen Lesen des Codes direkt ersichtlich welche Spalte/n abgerufen wird/werden. Mit einem Index müsste bekannt sein, welcher Spaltenname für die Zahl steht.
 
 Ablauf mit 'sqlite3.Row':
 
@@ -279,11 +279,11 @@ sqlite3.Row
       ↓
 Python bekommt benannte Zeilen
 
-Es kann auch mehrere Spalten abgerufen werden:
+So können mehrere Spalten abgerufen werden:
 
 ```bash
 <li>
-    {{ task["title"] }} – {{ task["status"] }}   # Wert aus Spalte 'title' und Spalte 'status' 
+    {{ task["title"] }} – {{ task["status"] }}
 </li>
 ```
 
@@ -301,7 +301,7 @@ Willkommen bei unserem Taskmanager!
 
 Es wird also nicht nur die Aufgabe, sondern auch der Status angezeigt.
 
-Wie oben zu sehen, wurde ein Bindestrich auch der Browserausgabe hinzugefügt. Das kann z.B. auch für Beschriftungen genutzt werden: 
+Wie oben zu sehen, wurde ein Bindestrich der Browserausgabe hinzugefügt. Das kann zB. auch für Beschriftungen genutzt werden: 
 
 ```bash
 <li>

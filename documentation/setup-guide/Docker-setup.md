@@ -1,4 +1,6 @@
-# Docker Einrichtung
+# Docker Installation und Testung
+
+Im Folgenden wird die Installation und Testung von Docker vorgenommen.
 
 ## Voraussetzungen
 
@@ -13,8 +15,6 @@
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do
     sudo apt purge -y "$pkg"
 done
-
-sudo apt autoremove -y   # Entfernung unbenutzter Pakete
 ```
 
 ## Prüfen, ob Docker-Daten vorhanden sind
@@ -77,6 +77,7 @@ sudo chmod a+r /etc/apt/keyrings/docker.gpg   # Berechtigungen setzen
 ```
 
 Je nach Mint-Version erscheint zB:
+
 noble oder jammy
 
 ## Docker-Repository hinzufügen
@@ -120,6 +121,7 @@ systemctl status docker
 ```
 
 Gewünschte Ausgabe:
+
 Active: active (running)
 
 Falls der Dienst noch nicht läuft:
@@ -156,7 +158,8 @@ docker info    # Informationen zur Installation
 docker run hello-world
 ```
 
-Wenn alles funktioniert, erscheint am Ende:
+Wenn alles funktioniert, kommt folgende Ausgabe:
+
 Hello from Docker!
 
 ## Docker Compose testen
@@ -172,7 +175,7 @@ Hinweis: Docker compose ohne Bindestrich.
 ```bash
 docker run -d \   # Container erzeugen
 --name nginx \   # Containername vergeben
--p 8080:80 \   # Hostport/Containerport konfigurieren
+-p 8080:80 \   # Hostport:Containerport konfigurieren
 nginx   # Image des Containers
 
 docker ps    # Laufende Container anzeigen

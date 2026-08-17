@@ -2,7 +2,7 @@
 
 ## Ziel
 
-Einrichtung einer lokalen Git-Umgebung und Verbindung zu GitHub über SSH zur Versionsverwaltung von Lernprojekten.
+Einrichtung einer lokalen Git-Umgebung und Verbindung zu GitHub über SSH zur Versionsverwaltung eines Repository's.
 
 ## Ablauf
 
@@ -22,7 +22,7 @@ git config --global user.email "MAIL"   # E-Mail-Adresse für Commits festlegen
 
 git config --global init.defaultBranch main   # Standard-Branch 'main' für neue lokale Repositories festlegen 
 
-git --version   # Versionsprüfung
+git --version   # Versionsabfrage
 ```
 
 ## SSH-Authentifizierung 
@@ -58,12 +58,14 @@ mkdir -p ~/FOLDERNAME   # Ordner erstellen
 
 cd ~/FOLDERNAME   # in Ordner wechseln
 
-git clone git@github.com:USERNAME/FOLDERNAME.git   # erstellt lokale Kopie eines bestehenden Repositorys
+git clone git@github.com:USERNAME/FOLDERNAME.git   # erstellt lokale Kopie eines bestehenden Repository's
 ```
 
 ## Erster Commit und Push
 
 README.md-Datei erstellt und erweitert. 
+
+Mit den folgenden Befehlen wird der Commit durchgeführt und gepusht:
 
 ```bash
 git add FILENAME.md   # Änderungen für den nächsten Commit vormerken (staging).

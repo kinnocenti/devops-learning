@@ -1,5 +1,7 @@
 # Datenbank Erstellung und Testung
 
+In diesem Abschnitt wird die SQLite-Datenbank 'taskmanager.db' mit SQL-Abfragen im SQL-Client DBeaver erstellt und gestestet. 
+
 ## Datenbankmodell
 
 ┌──────────────────────┐
@@ -40,7 +42,7 @@
         (Selbstreferenz)
 
 Die Anwendung verwendet drei Tabellen. Die Tabelle 'groups' speichert die Aufgabengruppen. In 'tasks' werden die eigentlichen Aufgaben gespeichert. Eine Aufgabe kann optional einer Gruppe zugeordnet werden.
-Die Tabelle 'task_dependencies' bildet Abhängigkeiten zwischen Aufgaben ab. Sie verwendet zwei Fremdschlüssel auf die Tabelle tasks und stellt damit eine selbstreferenzierende n:m-Beziehung zwischen Aufgaben dar. Eine Aufgabe kann dadurch von mehreren anderen Aufgaben abhängen und gleichzeitig Voraussetzung für mehrere weitere Aufgaben sein.
+Die Tabelle 'task_dependencies' bildet Abhängigkeiten zwischen Aufgaben ab. Sie verwendet zwei Fremdschlüssel auf die Tabelle 'tasks' und stellt damit eine selbstreferenzierende n:m-Beziehung zwischen verschiedenen Aufgaben dar. Eine Aufgabe kann dadurch von mehreren anderen Aufgaben abhängen und gleichzeitig Voraussetzung für mehrere weitere Aufgaben sein.
 
 ## SQLite-Datenbank in DBeaver anlegen
 
@@ -54,18 +56,18 @@ Mit 'Finish' bestätigen.
 
 ## Verbindungstest
 
-Rechtsklick auf taskmanager.db (wurde links neu angelegt) und Connect auswählen und anklicken.
+Rechtsklick auf 'taskmanager.db' (wurde links neu angelegt) und 'Connect' auswählen und anklicken.
 
 Wenn der Hinweis kommt, dass mit Download der SQLite-JDBC-Treiber eingerichtet wird, auf 'Download' klicken.
 Der Treiber ist notwendig für die Kommunikation zwischen DBeaver und SQLite.
 
-Wird jetzt erneut Rechtsklick auf taskmanager.db gemacht, wird nicht mehr die Option 'Connect', sondern 'Disconnect' und weitere neue Optionen angezeigt.
+Wird jetzt erneut Rechtsklick auf 'taskmanager.db' gemacht, wird nicht mehr die Option 'Connect', sondern 'Disconnect' und weitere neue Optionen angezeigt.
 
 ## Tabellen erstellen
 
-Rechtsklick auf taskmanager.db, 'SQL Editor' auswählen und 'Open SQL Script' anklicken.
+Rechtsklick auf 'taskmanager.db', 'SQL Editor' auswählen und 'Open SQL Script' anklicken.
 
-SQL-Queries zum anlegen der Tabellen:
+SQL-Queries zum Anlegen der Tabellen:
 
 ```bash
 # Tabelle groups anlegen:
@@ -184,7 +186,7 @@ VALUES
     (5, 2),
     (5, 3);
 
-# Prüfen, ob Aufgabe mit mehrehen Abhängigkeiten erstellt wurde:
+# Prüfen, ob Aufgabe mit mehreren Abhängigkeiten erstellt wurde:
 SELECT * FROM task_dependencies;
 
 # Erster Constraint, eine bestehende Abhängigkeit soll erneut erstellt werden:
@@ -197,7 +199,7 @@ VALUES (
     2
 );
 
-# Zweiter Constraint, nicht vorhandene Priorität 4 vergeben bei einer neuen Aufgabe:
+# Zweiter Constraint, nicht existierende Priorität 4 vergeben bei einer neuen Aufgabe:
 INSERT INTO tasks (
     title,
     status,
@@ -211,7 +213,7 @@ VALUES (
     1
 );
 
-# Abfrage der Tabelle tasks nach unerledigten Aufgaben:
+# Abfrage der Tabelle 'tasks' nach unerledigten Aufgaben:
 SELECT id, title, status, priority, deadline, group_id
 FROM tasks
 WHERE status IN ('open', 'in_progress');
@@ -221,7 +223,7 @@ SELECT id, title, status, priority, deadline, group_id
 FROM tasks
 WHERE status = 'completed';
 
-# Abfrage der Tabelle tasks nach den Aufgaben und ihren Gruppennamen:
+# Abfrage der Tabelle 'tasks' nach den Aufgaben und ihren Gruppennamen:
 SELECT
     tasks.id,
     tasks.title,
@@ -230,7 +232,7 @@ FROM tasks
 LEFT JOIN groups
     ON tasks.group_id = groups.id;
 
-# Self-JOIN, Tabelle tasks wird mit sich selbst verbunden für die Abfrgae der abhängige Aufgabe und von der sie abhängt: 
+# Self-JOIN, Tabelle 'tasks' wird mit sich selbst verbunden für die Abfrgae der abhängige Aufgabe und von der diese wiederum abhängt: 
 SELECT
     task.title AS task,
     dependency.title AS depends_on

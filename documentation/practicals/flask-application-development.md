@@ -1,19 +1,19 @@
 # Entwicklung der Flask-Anwendung
 
-Hier werden die Entwicklungsschritte an der Flask-Anwendung zum näheren Verständnis erklärt und auf ienem Blick dargestellt.
+Hier werden die Entwicklungsschritte an der Flask-Anwendung zum näheren Verständnis erklärt und auf einen Blick dargestellt.
 
-Anmerkung: Versionierung wird regulär mit 'git commit' durchgeführt.
+Anmerkung: Versionierung wird regulär mit ```bash git commit -m ">Kommentar<" ``` durchgeführt.
 
 ## Erste Test-Flask-Anwendung
 
-Einfachste Flask-Anwendung
+Zunächst wird eine simple Flask-Anwendung geschrieben, um grundlegende Prinzipien zu klären. 
 
 ```bash
 from flask import Flask   # Flask aus dem installierten Flask-Paket holen
 
 app = Flask(__name__)   # Flask-Anwendung erzeugen
 
-@app.route("/")   # wenn / aufrufen wird, soll home() ausgeführt werden
+@app.route("/")   # wenn / aufgerufen wird, soll home() ausgeführt werden
 def home():   # home()-Funktion
     return "Hallo vom Taskmanager!"   # liefert Text als HTTP-Antwort
 
@@ -116,7 +116,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")   # Referenzierung auf index.html 
+    return render_template("index.html")   # Referenzierung auf 'index.html' 
 ```
 
 Aufbau mit Templates:
@@ -159,7 +159,7 @@ Flask
 
 In diesem Schritt wird ein statischer Wert zu einem dynamischen Wert im HTML-Template mit Hilfe von Jinja.
 
-In app.py die letzte Zeile ändern:
+In 'app.py' die letzte Zeile ändern:
 
 ```bash
 from flask import Flask, render_template
@@ -171,7 +171,7 @@ def home():
     return render_template("index.html", name="Taskmanager")   # diese Zeile hat sich geändert, damit wird dem Template ein Wert mitgegeben: name = "Taskmanager"
 ```
 
-In index.html die siebte Zeile ändern:
+In 'index.html' entsprechende Zeile ändern:
 
 ```bash
 <!DOCTYPE html>
@@ -189,7 +189,7 @@ In index.html die siebte Zeile ändern:
 </html>
 ```
 
-Mit der Template-Engine Jinja wird das statische HTML dynamisch. Statt des statischen Eintrags Taskmanager wird {{ name }} eingefügt und damit kommt Jinja zum Einsatz. Der Wert der an dieser Stelle eingesetzt wird, wird aus dem Python-Code der Datei 'app.py' geholt, eingefügt und wird per HTTP an den Browser übergeben.
+Mit der Template-Engine Jinja wird das statische HTML dynamisch. Statt des statischen Eintrags Taskmanager wird '{{ name }}' eingefügt und damit kommt Jinja zum Einsatz. Der Wert der an dieser Stelle eingesetzt wird, wird aus dem Python-Code der Datei 'app.py' geholt, eingefügt und wird per HTTP an den Browser übergeben.
 
 Ablauf mit Jinja:
 
@@ -247,7 +247,7 @@ Browser rendert HTML
 
 Zuvor wurde eine Wert mit Jinja an HTML weitergegeben. Jetzt wird eine Liste mit mehreren Werten weitergegeben.
 
-Die app.py-Datei wird wie folgt angepasst:
+Die 'app.py'-Datei wird wie folgt angepasst:
 
 ```bash
 from flask import Flask, render_template
@@ -284,7 +284,7 @@ Python
           ↓
         Jinja
 
-Die index.html-Datei anpassen:
+Die 'index.html'-Datei anpassen:
 
 ```bash
 <!DOCTYPE html>
@@ -308,7 +308,7 @@ Die index.html-Datei anpassen:
 </html>
 ```
 
-Hinweis zu 'task': Die Jinja-for-Schleife iteriert über die von Python übergebene Aufgabenliste. task bezeichnet dabei jeweils das aktuell bearbeitete Element.
+Hinweis zu 'task': Die Jinja-for-Schleife iteriert über die von Python übergebene Aufgabenliste und 'task' bezeichnet dabei jeweils das aktuell bearbeitete Element.
 
 Datenfluss:
 
