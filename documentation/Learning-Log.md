@@ -54,3 +54,8 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 ## 15.08.2026
 
 - Erste Schritte der Datenbankeinbindung bis sqlite3.Row
+
+## 18.08.2026
+
+- Erste Schritte Richtung Benutzerfreundlichkeit:
+  Statuswerte in der 'index.html'-Datei angepasst

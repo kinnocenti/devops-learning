@@ -14,7 +14,16 @@
     {% for task in tasks %}
     <li>
         {{ task["title"] }}
-        – Status: {{ task["status"] }}
+
+        – Status:
+        {% if task["status"] == "open" %}
+        Offen
+        {% elif task["status"] == "in_progress" %}
+        In Bearbeitung
+        {% elif task["status"] == "completed" %}
+        Erledigt
+        {% endif %}
+
         – Priorität: {{ task["priority"] }}
     </li>
     {% endfor %}

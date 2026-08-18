@@ -33,6 +33,8 @@ print(tasks)   # Inhalt von 'tasks' im Terminal ausgeben
 connection.close()   # bestehende Verbindung zur Datenbank wird geschlossen
 ```
 
+Der Cursor ist eine Schnittstelle, über die Python SQL-Anweisungen an die Datenbank senden und Ergebnisse dieser Abfragen abrufen kann.
+
 Im Terminal in den Ordner 'taskmanager' wechseln, die .venv aufrufen und den Code ausführen:
 
 ```bash
@@ -232,6 +234,7 @@ SQLite ──→ Python ──→ tasks
 ## Vom Index [1] zur sqlite3.Row
 
 Da die Verwendung von Indizes zu Problemen führen kann, wird das Zeilenformat 'sqlite3.Row' für die Ausgabe der Tupel verwendet. Dafür wird die Eigenschaft 'row_factory' bei dem Verbindungsobjekt 'connection' desetzt. 'sqlite3.Row' ist ein von Python bereitgestellter Typ für Datenbankzeilen, der es ermöglicht, die Werte über die Spaltennamen anzusprechen.
+Zusammengefasst, 'row_factory' legt fest, wie SQLite die zurückgegebenen Datenbankzeilen in Python darstellen bzw. zugreifbar machen soll. Mit sqlite3.Row erhält man Zeilen, auf deren Spalten sowohl über Indizes als auch über Spaltennamen zugriffen werde kann.
 
 In der Datei 'app.py' muss entsprechend eine Zeile hinzugefügt werden:
 
