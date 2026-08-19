@@ -79,3 +79,103 @@ HTML
    │ Offen / In Bearbeitung / Erledigt
    ▼
 Browser
+
+## Prioritätswerte anpassen
+
+Wie der Statuswert, wird auch der Prioritätswert für die Browserausgabe mit if-Anweisung geändert.
+
+Der folgende Codeabschnitt muss unter den Codeblock der Statuswerte. Also auch innerhalb der for-Schleife:
+
+```bash
+        – Priorität:
+        {% if task["priority"] == 1 %}   # Wenn Priorität 1 ist, dann Niedrig einsetzen
+        Niedrig   
+        {% elif task["priority"] == 2 %}   # elif = ansonsten wenn
+        Mittel
+        {% elif task["priority"] == 3 %}
+        Hoch
+        {% endif %}
+```
+
+Hinweis: Browserausgabe siehe nächstes Kapitel.
+
+## Deadline integrieren und anpassen
+
+Hier wird die Deadline eingefügt. Dabei soll zum einen die Deadline ausgegeben werden und zum anderen soll lediglich ein '–' ausgegeben werden, wenn keine Deadline eingegeben wurde. Dafür wird eine if/else-Anweisung verwedent.
+Das Datums- und Uhrzeitformat, das in der Browserausgabe unten zu sehen ist, liegt einem Textfeld zugrunde. In der Planung des Taskmanagers wurde entschieden, dass Deadline ein Textfeld hat. User können also das für ihre Deadline eintragen, was sie favorisieren.
+
+Hinweis: Was steht wo, wenn keine Deadline eingegeben wurde? In der Datenbank steht 'NULL', in Python 'None' und durch Jinja im Browser '–'.
+
+Die folgenden Codezeilen werden entsprechend unter den Codeabschnitt der Prioritätswerte eingefügt:
+
+```bash
+       – Deadline:
+        {% if task["deadline"] == None %}   # wenn Deadline None ist, dann – einfügen
+        –
+        {% else %}   # sonst Wert aus Spalte deadline ausgeben
+        {{ task["deadline"] }}
+        {% endif %}
+```
+
+Ausgabe im Browser:
+
+Taskmanager
+
+Willkommen bei unserem Taskmanager!
+
+    Docker installieren – Status: Erledigt – Priorität: Mittel – Deadline: –
+    Docker Tutorial Teil 1 – Status: In Bearbeitung – Priorität: Mittel – Deadline: –
+    Docker Tutorial Teil 2 – Status: Offen – Priorität: Hoch – Deadline: 2026-08-12 20:00
+    Linuxbefehlsübersicht erstellen – Status: Offen – Priorität: Niedrig – Deadline: –
+    Docker Compose Grundlagen – Status: Offen – Priorität: Mittel – Deadline: –
+
+In der Browserausgabe ist auch ersichtlich, dass die Prioritätswerte entsprechend der Anpassungen des Codes im vorherigen Kapitel angepasst wurden.
+
+Hinweis: Das Datums- und Uhrzeitformat, das in der obigen Ausgabe zu sehen ist, liegt einem Textfeld zugrunde. In der Planung des Taskmanagers wurde entschieden, dass Deadline ein Textfeld hat. User können also das für ihre Deadline eintragen, was sie favorisieren.
+
+Mit zwei weiteren SQL-Updates wurden zwei neue Deadlines eingetragen und das Resultat ist entsprechend zu sehen.
+
+```bash
+UPDATE tasks
+SET deadline = 'Freitag'
+WHERE id = 2;
+
+UPDATE tasks
+SET deadline = '30.09.2026'
+WHERE id = 4;
+```
+
+Browserausgabe:
+
+Taskmanager
+
+Willkommen bei unserem Taskmanager!
+
+    Docker installieren – Status: Erledigt – Priorität: Mittel – Deadline: –
+    Docker Tutorial Teil 1 – Status: In Bearbeitung – Priorität: Mittel – Deadline: Freitag
+    Docker Tutorial Teil 2 – Status: Offen – Priorität: Hoch – Deadline: 2026-08-12 20:00
+    Linuxbefehlsübersicht erstellen – Status: Offen – Priorität: Niedrig – Deadline: 30.09.2026
+    Docker Compose Grundlagen – Status: Offen – Priorität: Mittel – Deadline: –
+
+
+
+
+Die Die SQL-Abfrage in der 'app.py'-Datei muss durch folgende SQL-Abfrage mit JOIN ersetz werden:
+
+```bash
+    cursor.execute("""
+    SELECT
+        tasks.*,
+        groups.name
+    FROM tasks
+    LEFT JOIN groups
+        ON tasks.group_id = groups.id
+    """)
+```
+
+Unter der Codezeile ```bash {{ task["title"] }} ``` folgende Zeile hinzufügen:
+
+```bash 
+        – Gruppe:
+        {{ task["name"] }} 
+```

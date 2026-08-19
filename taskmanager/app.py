@@ -10,7 +10,14 @@ def home():
     
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM tasks")
+    cursor.execute("""
+    SELECT
+        tasks.*,
+        groups.name
+    FROM tasks
+    LEFT JOIN groups
+        ON tasks.group_id = groups.id
+    """)
 
     tasks = cursor.fetchall()
 

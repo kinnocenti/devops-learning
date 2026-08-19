@@ -159,7 +159,18 @@ JOIN tasks AS task
 JOIN tasks AS dependency
     ON task_dependencies.depends_on_task_id = dependency.id;
 
+-- Aufgabe 'Docker Tutorial Teil 2' zweite Deadline hinzufügen als Wochentag:
+UPDATE tasks
+SET deadline = 'Freitag'
+WHERE id = 2;
 
+-- Aufgabe 'Docker Tutorial Teil 2' dritte Deadline hinzufügen als anderes Datumsformat:
+UPDATE tasks
+SET deadline = '30.09.2026'
+WHERE id = 4;
+
+SELECT *
+FROM tasks;
 
 
 

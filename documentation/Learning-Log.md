@@ -59,3 +59,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 
 - Erste Schritte Richtung Benutzerfreundlichkeit:
   Statuswerte in der 'index.html'-Datei angepasst
+
+## 19.08.2026
+
+- Prioritätswerte angepasst und Deadline integriert (in 'index.html')

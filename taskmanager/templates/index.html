@@ -15,6 +15,9 @@
     <li>
         {{ task["title"] }}
 
+        – Gruppe:
+        {{ task["name"] }}
+
         – Status:
         {% if task["status"] == "open" %}
         Offen
@@ -24,7 +27,21 @@
         Erledigt
         {% endif %}
 
-        – Priorität: {{ task["priority"] }}
+        – Priorität:
+        {% if task["priority"] == 1 %}
+        Niedrig
+        {% elif task["priority"] == 2 %}
+        Mittel
+        {% elif task["priority"] == 3 %}
+        Hoch
+        {% endif %}
+
+        – Deadline:
+        {% if task["deadline"] == None %}
+        –
+        {% else %}
+        {{ task["deadline"] }}
+        {% endif %}
     </li>
     {% endfor %}
 </ul>
