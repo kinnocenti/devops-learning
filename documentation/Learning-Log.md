@@ -63,3 +63,8 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 ## 19.08.2026
 
 - Prioritätswerte angepasst und Deadline integriert (in 'index.html')
+
+## 20.08.2026
+
+- Abhängigkeiten der Aufgaben integriert
+- SQL-Abfrage erweitert

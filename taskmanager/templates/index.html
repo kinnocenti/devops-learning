@@ -8,42 +8,51 @@
 <body>
     <h1>{{ name }}</h1>
     <p>Willkommen bei unserem Taskmanager!</p>
+
+    <ul>
+        {% for task in tasks %}
+
+        <li>
+            {{ task["title"] }}
+
+            {% if task["name"] != None %}
+            – Gruppe: {{ task["name"] }}
+            {% endif %}
+
+            – Status:
+            {% if task["status"] == "open" %}
+            Offen
+            {% elif task["status"] == "in_progress" %}
+            In Bearbeitung
+            {% elif task["status"] == "completed" %}
+            Erledigt
+            {% endif %}
+
+            – Priorität:
+            {% if task["priority"] == 1 %}
+            Niedrig
+            {% elif task["priority"] == 2 %}
+            Mittel
+            {% elif task["priority"] == 3 %}
+            Hoch
+            {% endif %}
+
+            {% if task["deadline"] != None %}
+            – Deadline: {{ task["deadline"] }}
+            {% endif %}
+
+            {% if task["depends_on_titles"] != None %}
+            – Abhängig von: {{ task["depends_on_titles"] }}
+            {% endif %}
+
+            {% if task["dependent_titles"] != None %}
+            – Wird benötigt von: {{ task["dependent_titles"] }}
+            {% endif %}
+
+        </li>
+
+        {% endfor %}
+    </ul>
 </body>
-
-<ul>
-    {% for task in tasks %}
-    <li>
-        {{ task["title"] }}
-
-        – Gruppe:
-        {{ task["name"] }}
-
-        – Status:
-        {% if task["status"] == "open" %}
-        Offen
-        {% elif task["status"] == "in_progress" %}
-        In Bearbeitung
-        {% elif task["status"] == "completed" %}
-        Erledigt
-        {% endif %}
-
-        – Priorität:
-        {% if task["priority"] == 1 %}
-        Niedrig
-        {% elif task["priority"] == 2 %}
-        Mittel
-        {% elif task["priority"] == 3 %}
-        Hoch
-        {% endif %}
-
-        – Deadline:
-        {% if task["deadline"] == None %}
-        –
-        {% else %}
-        {{ task["deadline"] }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
 
 </html>
