@@ -13,7 +13,7 @@
         {% for task in tasks %}
 
         <li>
-            {{ task["title"] }}
+            <a href="/task/{{ task['id'] }}">{{ task['title'] }}</a>
 
             {% if task["name"] != None %}
             – Gruppe: {{ task["name"] }}

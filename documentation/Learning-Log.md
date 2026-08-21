@@ -68,3 +68,8 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 
 - Abhängigkeiten der Aufgaben integriert
 - SQL-Abfrage erweitert
+
+## 21.08.2026
+
+- Erstellung von Links für die UI
+- Link führt zur Detailansicht ('task.html' erstellt)

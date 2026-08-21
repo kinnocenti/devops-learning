@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Aufgabe</title>
+</head>
+
+<body>
+
+    <h1>{{ task["title"] }}</h1>
+
+    <p>Status: {{ task["status"] }}</p>
+    <p>Priorität: {{ task["priority"] }}</p>
+
+    {% if task["name"] != None %}
+    <p>Gruppe: {{ task["name"] }}</p>
+    {% endif %}
+
+    {% if task["deadline"] != None %}
+    <p>Deadline: {{ task["deadline"] }}</p>
+    {% endif %}
+
+    {% if task["depends_on_titles"] != None %}
+    <p>Abhängig von: {{ task["depends_on_titles"] }}</p>
+    {% endif %}
+
+    {% if task["dependent_titles"] != None %}
+    <p>Wird benötigt von: {{ task["dependent_titles"] }}</p>
+    {% endif %}
+
+    <p><a href="/">← Zurück</a></p>
+
+</body>
+
+</html>

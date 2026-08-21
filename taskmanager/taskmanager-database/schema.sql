@@ -170,7 +170,7 @@ SET deadline = '30.09.2026'
 WHERE id = 4;
 
 SELECT *
-FROM tasks;
+FROM task_dependencies;
 
 
 
