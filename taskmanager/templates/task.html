@@ -7,28 +7,65 @@
 
 <body>
 
-    <h1>{{ task["title"] }}</h1>
+    <h1>
+        ♦ {{ task["title"] }}
+    </h1>
 
-    <p>Status: {{ task["status"] }}</p>
-    <p>Priorität: {{ task["priority"] }}</p>
+    <p>
+        ●
+        {% if task["priority"] == 1 %}
+        Niedrig
+        {% elif task["priority"] == 2 %}
+        Mittel
+        {% elif task["priority"] == 3 %}
+        Hoch
+        {% endif %}
+    </p>
 
-    {% if task["name"] != None %}
-    <p>Gruppe: {{ task["name"] }}</p>
-    {% endif %}
+    <p>
+        ■
+        {% if task["status"] == "open" %}
+        Offen
+        {% elif task["status"] == "in_progress" %}
+        In Bearbeitung
+        {% elif task["status"] == "completed" %}
+        Erledigt
+        {% endif %}
+    </p>
 
     {% if task["deadline"] != None %}
-    <p>Deadline: {{ task["deadline"] }}</p>
+    <p>
+        Deadline: {{ task["deadline"] }}
+    </p>
+    {% endif %}
+
+    {% if task["name"] != None %}
+    <p>
+        Gruppe: {{ task["name"] }}
+    </p>
+    {% endif %}
+
+    {% if task["description"] != None %}
+    <p>
+        Beschreibung: {{ task["description"] }}
+    </p>
     {% endif %}
 
     {% if task["depends_on_titles"] != None %}
-    <p>Abhängig von: {{ task["depends_on_titles"] }}</p>
+    <p>
+        Abhängig von: {{ task["depends_on_titles"] }}
+    </p>
     {% endif %}
 
     {% if task["dependent_titles"] != None %}
-    <p>Wird benötigt von: {{ task["dependent_titles"] }}</p>
+    <p>
+        Wird benötigt von: {{ task["dependent_titles"] }}
+    </p>
     {% endif %}
 
-    <p><a href="/">← Zurück</a></p>
+    <p>
+        <a href="/">← Zurück</a>
+    </p>
 
 </body>
 

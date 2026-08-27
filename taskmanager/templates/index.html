@@ -3,56 +3,71 @@
 
 <head>
     <title>Taskmanager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+
     <h1>{{ name }}</h1>
+
     <p>Willkommen bei unserem Taskmanager!</p>
 
-    <ul>
-        {% for task in tasks %}
+    {% set current_group = namespace(name=None) %}
 
-        <li>
-            <a href="/task/{{ task['id'] }}">{{ task['title'] }}</a>
+    {% for task in tasks %}
 
-            {% if task["name"] != None %}
-            – Gruppe: {{ task["name"] }}
-            {% endif %}
+    {% if task["name"] != current_group.name %}
 
-            – Status:
-            {% if task["status"] == "open" %}
-            Offen
-            {% elif task["status"] == "in_progress" %}
-            In Bearbeitung
-            {% elif task["status"] == "completed" %}
-            Erledigt
-            {% endif %}
+    {% if task["name"] != None %}
+    <h2 class="group">
+        ♦ {{ task["name"] }}
+    </h2>
+    {% endif %}
 
-            – Priorität:
+    {% set current_group.name = task["name"] %}
+
+    {% endif %}
+
+    <div class="task {% if task['name'] != None %}grouped-task{% endif %}">
+
+        <span class="task-marker">♦</span>
+
+        <a href="/task/{{ task['id'] }}">{{ task['title'] }}</a>
+
+        <span class="priority">
+
             {% if task["priority"] == 1 %}
-            Niedrig
+            ● Niedrig
             {% elif task["priority"] == 2 %}
-            Mittel
+            ● Mittel
             {% elif task["priority"] == 3 %}
-            Hoch
+            ● Hoch
             {% endif %}
 
-            {% if task["deadline"] != None %}
+        </span>
+
+        <span class="status">
+
+            {% if task["status"] == "open" %}
+            ■ Offen
+            {% elif task["status"] == "in_progress" %}
+            ■ In Bearbeitung
+            {% elif task["status"] == "completed" %}
+            ■ Erledigt
+            {% endif %}
+
+        </span>
+
+        {% if task["deadline"] != None %}
+        <span class="deadline">
             – Deadline: {{ task["deadline"] }}
-            {% endif %}
+        </span>
+        {% endif %}
 
-            {% if task["depends_on_titles"] != None %}
-            – Abhängig von: {{ task["depends_on_titles"] }}
-            {% endif %}
+    </div>
 
-            {% if task["dependent_titles"] != None %}
-            – Wird benötigt von: {{ task["dependent_titles"] }}
-            {% endif %}
+    {% endfor %}
 
-        </li>
-
-        {% endfor %}
-    </ul>
 </body>
 
 </html>

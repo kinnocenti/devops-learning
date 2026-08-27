@@ -73,3 +73,10 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 
 - Erstellung von Links für die UI
 - Link führt zur Detailansicht ('task.html' erstellt)
+
+## 25.08.2026
+
+- Umstrukturierung des UI-Konzepts 
+- Vorbereitungen für CSS (Anpassung der entsprechenden Dateien)
+
+## 26.08.2026 

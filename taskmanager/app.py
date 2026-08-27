@@ -17,27 +17,12 @@ def home():
         tasks.status,
         tasks.priority,
         tasks.deadline,
-        groups.name,
-
-        GROUP_CONCAT(DISTINCT depends_on.title) AS depends_on_titles,
-        GROUP_CONCAT(DISTINCT dependent.title) AS dependent_titles
+        groups.name
 
     FROM tasks
 
     LEFT JOIN groups
         ON tasks.group_id = groups.id
-
-    LEFT JOIN task_dependencies
-        ON tasks.id = task_dependencies.task_id
-
-    LEFT JOIN tasks AS depends_on
-        ON task_dependencies.depends_on_task_id = depends_on.id
-
-    LEFT JOIN task_dependencies AS reverse_dependencies
-        ON tasks.id = reverse_dependencies.depends_on_task_id
-
-    LEFT JOIN tasks AS dependent
-        ON reverse_dependencies.task_id = dependent.id
 
     GROUP BY
         tasks.id,
@@ -46,6 +31,11 @@ def home():
         tasks.priority,
         tasks.deadline,
         groups.name
+
+    ORDER BY
+        groups.name IS NULL,
+        groups.name,
+        tasks.title
     """)
 
     tasks = cursor.fetchall()
@@ -72,6 +62,7 @@ def task_detail(task_id):
         tasks.status,
         tasks.priority,
         tasks.deadline,
+        tasks.description,
         groups.name,
 
         GROUP_CONCAT(DISTINCT depends_on.title) AS depends_on_titles,
@@ -102,6 +93,7 @@ def task_detail(task_id):
         tasks.status,
         tasks.priority,
         tasks.deadline,
+        tasks.description,
         groups.name
     """, (task_id,))
 
