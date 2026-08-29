@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -106,3 +106,96 @@ def task_detail(task_id):
     name="Aufgabe",
     task=task
 )
+
+@app.route("/create-group", methods=["GET", "POST"])
+def create_group():
+
+    connection = sqlite3.connect("taskmanager.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+
+        cursor.execute(
+            """
+            INSERT INTO groups (name)
+            VALUES (?)
+            """,
+            (name,)
+        )
+
+        connection.commit()
+        connection.close()
+
+        return redirect("/")
+
+    connection.close()
+
+    return render_template(
+        "create_group.html"
+    )
+
+@app.route("/create-task", methods=["GET", "POST"])
+def create_task():
+
+    connection = sqlite3.connect("taskmanager.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        description = request.form["description"]
+        priority = request.form["priority"]
+        status = request.form["status"]
+        deadline = request.form["deadline"]
+        group_id = request.form["group_id"]
+
+        if group_id == "":
+            group_id = None
+
+        cursor.execute(
+            """
+            INSERT INTO tasks (
+                title,
+                description,
+                priority,
+                status,
+                deadline,
+                group_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                title,
+                description,
+                priority,
+                status,
+                deadline,
+                group_id
+            )
+        )
+
+        connection.commit()
+        connection.close()
+
+        return redirect("/")
+
+    cursor.execute(
+        """
+        SELECT id, name
+        FROM groups
+        ORDER BY name
+        """
+    )
+
+    groups = cursor.fetchall()
+
+    connection.close()
+
+    return render_template(
+        "create_task.html",
+        groups=groups
+    )

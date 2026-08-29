@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gruppe erstellen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="task-detail">
+
+    <h1>♦ Gruppe erstellen</h1>
+
+    <form method="post">
+
+        <p>
+            <label for="name">Gruppenname:</label>
+            <input type="text" id="name" name="name" required>
+        </p>
+
+        <p>
+            <button type="submit">Gruppe erstellen</button>
+        </p>
+
+    </form>
+
+    <p>
+        <a href="/">← Zurück</a>
+    </p>
+
+</body>
+
+</html>

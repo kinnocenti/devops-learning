@@ -6,11 +6,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body class="home">
 
     <h1>{{ name }}</h1>
 
     <p>Willkommen bei unserem Taskmanager!</p>
+
+    <p>
+        <a href="/create-task">Aufgabe erstellen</a>
+        |
+        <a href="/create-group">Gruppe erstellen</a>
+    </p>
 
     {% set current_group = namespace(name=None) %}
 
@@ -19,9 +25,11 @@
     {% if task["name"] != current_group.name %}
 
     {% if task["name"] != None %}
+
     <h2 class="group">
-        ♦ {{ task["name"] }}
+        <span class="group-marker">♦</span> {{ task["name"] }}
     </h2>
+
     {% endif %}
 
     {% set current_group.name = task["name"] %}
@@ -37,11 +45,11 @@
         <span class="priority">
 
             {% if task["priority"] == 1 %}
-            ● Niedrig
+            <span class="priority-marker low">●</span> Niedrig
             {% elif task["priority"] == 2 %}
-            ● Mittel
+            <span class="priority-marker medium">●</span> Mittel
             {% elif task["priority"] == 3 %}
-            ● Hoch
+            <span class="priority-marker high">●</span> Hoch
             {% endif %}
 
         </span>
@@ -49,11 +57,11 @@
         <span class="status">
 
             {% if task["status"] == "open" %}
-            ■ Offen
+            <span class="status-marker open">■</span> Offen
             {% elif task["status"] == "in_progress" %}
-            ■ In Bearbeitung
+            <span class="status-marker in-progress">■</span> In Bearbeitung
             {% elif task["status"] == "completed" %}
-            ■ Erledigt
+            <span class="status-marker completed">■</span> Erledigt
             {% endif %}
 
         </span>

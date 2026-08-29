@@ -3,65 +3,68 @@
 
 <head>
     <title>Aufgabe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body class="task-detail">
 
     <h1>
-        ♦ {{ task["title"] }}
+        <span class="task-marker">♦</span> {{ task["title"] }}
     </h1>
 
-    <p>
-        ●
-        {% if task["priority"] == 1 %}
-        Niedrig
-        {% elif task["priority"] == 2 %}
-        Mittel
-        {% elif task["priority"] == 3 %}
-        Hoch
+    <div class="task-info">
+
+        <p>
+            {% if task["priority"] == 1 %}
+            <span class="priority-marker low">●</span> Niedrig
+            {% elif task["priority"] == 2 %}
+            <span class="priority-marker medium">●</span> Mittel
+            {% elif task["priority"] == 3 %}
+            <span class="priority-marker high">●</span> Hoch
+            {% endif %}
+        </p>
+
+        <p>
+            {% if task["status"] == "open" %}
+            <span class="status-marker open">■</span> Offen
+            {% elif task["status"] == "in_progress" %}
+            <span class="status-marker in-progress">■</span> In Bearbeitung
+            {% elif task["status"] == "completed" %}
+            <span class="status-marker completed">■</span> Erledigt
+            {% endif %}
+        </p>
+
+        {% if task["deadline"] != None %}
+        <p>
+            Deadline: {{ task["deadline"] }}
+        </p>
         {% endif %}
-    </p>
 
-    <p>
-        ■
-        {% if task["status"] == "open" %}
-        Offen
-        {% elif task["status"] == "in_progress" %}
-        In Bearbeitung
-        {% elif task["status"] == "completed" %}
-        Erledigt
+        {% if task["name"] != None %}
+        <p>
+            Gruppe: {{ task["name"] }}
+        </p>
         {% endif %}
-    </p>
 
-    {% if task["deadline"] != None %}
-    <p>
-        Deadline: {{ task["deadline"] }}
-    </p>
-    {% endif %}
+        {% if task["description"] != None %}
+        <p>
+            Beschreibung: {{ task["description"] }}
+        </p>
+        {% endif %}
 
-    {% if task["name"] != None %}
-    <p>
-        Gruppe: {{ task["name"] }}
-    </p>
-    {% endif %}
+        {% if task["depends_on_titles"] != None %}
+        <p>
+            Abhängig von: {{ task["depends_on_titles"] }}
+        </p>
+        {% endif %}
 
-    {% if task["description"] != None %}
-    <p>
-        Beschreibung: {{ task["description"] }}
-    </p>
-    {% endif %}
+        {% if task["dependent_titles"] != None %}
+        <p>
+            Wird benötigt von: {{ task["dependent_titles"] }}
+        </p>
+        {% endif %}
 
-    {% if task["depends_on_titles"] != None %}
-    <p>
-        Abhängig von: {{ task["depends_on_titles"] }}
-    </p>
-    {% endif %}
-
-    {% if task["dependent_titles"] != None %}
-    <p>
-        Wird benötigt von: {{ task["dependent_titles"] }}
-    </p>
-    {% endif %}
+    </div>
 
     <p>
         <a href="/">← Zurück</a>

@@ -41,10 +41,16 @@ Dabei gilt:
     • Abhängigkeiten werden nicht auf der Startseite angezeigt 
     • Abhängigkeiten erscheinen nur in der Detailansicht 
 
+Gruppendarstellung:
+    • vor Gruppenname → lachsfarbene Raute
+
+Aufgabendarstellung:
+    • vor Aufgabentitel → fliederfarbene Raute
+
 Statusdarstellung:
     • Offen → blaues Quadrat 
     • In Bearbeitung → weißes Quadrat 
-    • Erledigt → lachsfarbenes Quadrat 
+    • Erledigt → pinkes Quadrat 
 
 Priorität:
     • Niedrig → grüner Kreis 

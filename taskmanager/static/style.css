@@ -1,5 +1,69 @@
 body {
+    margin: 0;
+    padding: 40px;
     font-family: "Liberation Mono", monospace;
-    background-color: #2b2b2b;
     color: #d6d6d6;
+}
+
+.home {
+    background-color: #2b2b2b;
+    font-size: 24px;
+}
+
+.task-detail {
+    background-color: #353535;
+    font-size: 24px;
+}
+
+.group {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.grouped-task {
+    margin-left: 60px;
+}
+
+.group-marker {
+    color: #f08080;
+}
+
+.task {
+    margin-bottom: 15px;
+}
+
+.task-info {
+    margin-left: 60px;
+}
+
+.task-marker {
+    color: #c8a2d8;
+}
+
+a {
+    color: #40e0d0;
+}
+
+.low {
+    color: #70c070;
+}
+
+.medium {
+    color: #f0c419;
+}
+
+.high {
+    color: #e05a5a;
+}
+
+.open {
+    color: #4a90e2;
+}
+
+.in-progress {
+    color: #ffffff;
+}
+
+.completed {
+    color: #ff1493;
 }

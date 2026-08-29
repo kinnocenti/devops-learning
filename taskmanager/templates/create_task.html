@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Aufgabe erstellen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="task-detail">
+
+    <h1>♦ Aufgabe erstellen</h1>
+
+    <form method="post">
+
+        <p>
+            <label for="title">Titel:</label>
+            <input type="text" id="title" name="title" required>
+        </p>
+
+        <p>
+            <label for="description">Beschreibung:</label>
+            <textarea id="description" name="description"></textarea>
+        </p>
+
+        <p>
+            <label for="priority">Priorität:</label>
+            <select id="priority" name="priority">
+                <option value="1">Niedrig</option>
+                <option value="2" selected>Mittel</option>
+                <option value="3">Hoch</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="open">Offen</option>
+                <option value="in_progress">In Bearbeitung</option>
+                <option value="completed">Erledigt</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="deadline">Deadline:</label>
+            <textarea id="deadline" name="deadline"></textarea>
+        </p>
+
+        <p>
+            <label for="group_id">Gruppe:</label>
+            <select id="group_id" name="group_id">
+                <option value="">Keine Gruppe</option>
+
+                {% for group in groups %}
+                <option value="{{ group['id'] }}">{{ group['name'] }}</option>
+                {% endfor %}
+
+            </select>
+        </p>
+
+        <p>
+            <button type="submit">Aufgabe erstellen</button>
+        </p>
+
+    </form>
+
+    <p>
+        <a href="/">← Zurück</a>
+    </p>
+
+</body>
+
+</html>

@@ -74,9 +74,16 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 - Erstellung von Links für die UI
 - Link führt zur Detailansicht ('task.html' erstellt)
 
-## 25.08.2026
+## 26.08.2026
 
 - Umstrukturierung des UI-Konzepts 
 - Vorbereitungen für CSS (Anpassung der entsprechenden Dateien)
 
-## 26.08.2026 
+## 27.08.2026 
+
+- Vorbereitungen für CSS fertiggestellt
+
+## 29.08.2026
+
+- Erste Schritte mit CSS (Abstände, Schriftgröße und Farben festlegen)
+- Eingabemaske für 'Aufgabe erstellen' und 'Gruppe erstellen' integriert 
