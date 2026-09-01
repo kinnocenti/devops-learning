@@ -87,3 +87,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 
 - Erste Schritte mit CSS (Abstände, Schriftgröße und Farben festlegen)
 - Eingabemaske für 'Aufgabe erstellen' und 'Gruppe erstellen' integriert 
+
+## 01.09.2026
+
+- Docker

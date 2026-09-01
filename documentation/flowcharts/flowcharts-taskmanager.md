@@ -26,15 +26,15 @@ fertige Webseite
 
 Die Verantwortlichkeiten:
 
-SQLite       → speichert die Daten
-SQL          → bestimmt, welche Daten abgefragt werden
-sqlite3      → ermöglicht Python den Zugriff auf SQLite
-Python       → führt SQL aus und verarbeitet die Ergebnisse
-Flask        → verarbeitet HTTP-Anfragen und steuert die Anwendung
-Jinja        → setzt Python-Daten in HTML ein
-HTML         → beschreibt die Struktur der Webseite
-CSS          → beschreibt das Aussehen
-Browser      → stellt HTML + CSS dar
+SQLite    → speichert die Daten
+SQL       → bestimmt, welche Daten abgefragt werden
+sqlite3   → ermöglicht Python den Zugriff auf SQLite
+Python    → führt SQL aus und verarbeitet die Ergebnisse
+Flask     → verarbeitet HTTP-Anfragen und steuert die Anwendung
+Jinja     → setzt Python-Daten in HTML ein
+HTML      → beschreibt die Struktur der Webseite
+CSS       → beschreibt das Aussehen
+Browser   → stellt HTML + CSS dar
 
 ## Was passiert beim Aufrufen der Startseite?
 
@@ -74,8 +74,6 @@ Browser
    ↓
 Startseite
 
-Das ist ein schöner Ablauf, weil man hier wirklich sieht, wer wann was macht.
-
 ## Was passiert bei einer Task-Detailansicht?
 
 Beim Aufruf beispielsweise:
@@ -114,7 +112,7 @@ Browser
    ↓
 Detailansicht
 
-Hier sieht man auch sehr schön den Unterschied:
+Hier sieht man folgenden Unterschied:
 
 Startseite → fetchall() → mehrere Tasks
 
@@ -156,9 +154,9 @@ HTML + CSS
    ↓
 Browser
 
-Beide Richtungen:
+BEIDE RICHTUNGEN:
 
-DATEN LESEN
+DATEN LESEN:
 
 SQLite
   ↓
