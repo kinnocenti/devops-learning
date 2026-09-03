@@ -92,4 +92,10 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 
 - Erste Schritte mit Docker
 
-##  
+## 03.09.2026
+
+- Vorbereitung der Containerisierung des Taskmanagers
+
+## 
+
+- 

@@ -6,23 +6,30 @@ Ein Container ist eine laufende Instanz eines Docker-Images. Ein Image dient dab
 
 ## Die grundlegenden Bestandteile von Docker
 
-DOCKER IMAGE → Vorlage für einen Container mit Anwendung und benötigten Dateien bzw. Abhängigkeiten.
+DOCKER IMAGE → Vorlage für einen Container mit Anwendung und benötigten Dateien bzw. Abhängigkeiten. Es enthält also die Dateien, Programme, Bibliotheken und Konfigurationen, die eine Anwendung innerhalb des Containers benötigt.
 
 DOCKER CONTAINER → Laufende Instanz eines Images.
 
-DOCKER ENGINE → Software auf dem Hostsystem, die Images und Container verwaltet und deren Ausführung ermöglicht.
+DOCKER ENGINE → Software auf dem Hostsystem, die Images und Container verwaltet und deren Ausführung ermöglicht. Sie stellt die Infrastruktur bereit.
+
+DOCKERFILE → Bauanleitung für einen Container
 
 DOCKER REGISTRY → Speicherort für Images, aus dem Images heruntergeladen bzw. in den Images veröffentlicht werden können. Eine bekannte öffentliche Registry ist Docker Hub.
 
 Der grundlegende Ablauf ist:
 
+Dockerfile
+    │
+    │ docker build
+    ▼
 Docker Image
-     ↓
-docker run
-     ↓
-Docker Container
-     ↓
-Anwendung läuft
+    │
+    │ docker run
+    ▼
+Container
+    │
+    ▼
+Prozess
 
 Images können lokal vorhanden sein oder bei Bedarf aus einer Registry heruntergeladen werden. Container können gestartet, gestoppt, entfernt und neu erstellt werden. Dadurch lassen sich Anwendungen reproduzierbar bereitstellen und betreiben.
 
