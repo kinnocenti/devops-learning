@@ -110,3 +110,13 @@ Gesamtüberblick der Anforderungsanalyse
                   taskmanager.db
                          │
                    später Volume
+
+## Erstellung der 'requirements.txt'-Datei
+
+Die 'requirements.txt'-Datei ist eine einfache Textdatei in der Programmiersprache Python, die alle externen Pakete und Bibliotheken auflistet, die ein Projekt zum Laufen benötigt. Dafür im Ordner 'taskmanager' die Datei 'requirements.txt' anlegen. Das einzige externe Paket, das benötigt wird ist Flask, darum wird folgende Zeile in 'requirements.txt' eingefügt:
+
+```bash
+Flask==3.1.3
+```
+
+Damit ist die Datei fertig und im nächsten Schritt kann mit der Erstellung der Dockerfile begonnen werden.
