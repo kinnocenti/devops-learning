@@ -96,6 +96,6 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 
 - Vorbereitung der Containerisierung des Taskmanagers
 
-## 
+## 04.09.2026
 
-- 
+- 'requirements.txt' angefangen zu erstellen

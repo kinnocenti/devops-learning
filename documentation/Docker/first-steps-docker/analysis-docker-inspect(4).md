@@ -1,6 +1,22 @@
-# Untersuchung eines Docker-Containers mit docker inspect
+# Untersuchung eines Docker-Containers mit 'docker inspect'
 
-Hier wird vertieft auf die Ausgabe von ```bash docker inspect webserver``` eingegangen. Es macht Sinn die Ausgabe des laufenden Containers mit der Ausgabe des gestoppten Containers zu vergleichen, so wird deutlich welche Änderungen und Einträge umgesetzt wurden.
+Nachdem die Grundlagen für Docker geschaffen wurden, wird nun der Taskmanager containerisiert. Es werden also alle Schritte durchlaufen, die notwendig sind, um die Webanwendung in einem Container lauffähig zu machen.
+
+Damit wird folgender Aufbau umgesetzt.
+
+Linux-Host
+    │
+    └── Docker Engine
+          │
+          └── Container
+                │
+                └── Taskmanager
+                      ├── Python
+                      ├── Flask
+                      ├── Anwendungscode
+                      └── Abhängigkeiten
+
+Damit wirklich verstanden wird, welche Komponenten in einem Container aktiv sind und als Vorbereitung auf die Dockerfile, wurde die Ausgabe von ```bash docker inspect webserver ``` analysiert. Es macht Sinn die Ausgabe des laufenden Containers mit der Ausgabe des gestoppten Containers zu vergleichen, so wird deutlich welche Änderungen und Einträge umgesetzt wurden.
 
 ## Zu Beginn
 
