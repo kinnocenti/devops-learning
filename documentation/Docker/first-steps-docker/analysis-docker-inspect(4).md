@@ -1,22 +1,6 @@
 # Untersuchung eines Docker-Containers mit 'docker inspect'
 
-Nachdem die Grundlagen für Docker geschaffen wurden, wird nun der Taskmanager containerisiert. Es werden also alle Schritte durchlaufen, die notwendig sind, um die Webanwendung in einem Container lauffähig zu machen.
-
-Damit wird folgender Aufbau umgesetzt.
-
-Linux-Host
-    │
-    └── Docker Engine
-          │
-          └── Container
-                │
-                └── Taskmanager
-                      ├── Python
-                      ├── Flask
-                      ├── Anwendungscode
-                      └── Abhängigkeiten
-
-Damit wirklich verstanden wird, welche Komponenten in einem Container aktiv sind und als Vorbereitung auf die Dockerfile, wurde die Ausgabe von ```bash docker inspect webserver ``` analysiert. Es macht Sinn die Ausgabe des laufenden Containers mit der Ausgabe des gestoppten Containers zu vergleichen, so wird deutlich welche Änderungen und Einträge umgesetzt wurden.
+Damit wirklich verstanden wird, welche Komponenten in einem Container aktiv sind und als Vorbereitung auf die Dockerfile, wird die Ausgabe von ```bash docker inspect webserver ``` näher analysiert. Es macht Sinn die Ausgabe des laufenden Containers mit der Ausgabe des gestoppten Containers zu vergleichen, so wird deutlich welche Änderungen und Einträge umgesetzt wurden.
 
 ## Zu Beginn
 
@@ -48,15 +32,15 @@ Außerdem ist Port 80/TCP als vorgesehener Container-Port angegeben:
 }
 ```
 
-Hier muss zwischen einem exponierten Port und einer Portweiterleitung unterschieden werden. Der Container wurde mit '-p 3000:80' gestartet. Dadurch wird Port 3000 des Docker-Hosts auf Port 80 des Containers weitergeleitet:
+Hier muss zwischen einem exponierten Port und einer Portweiterleitung unterschieden werden. Der Container wurde mit '-p 3000:80' gestartet. Dadurch wird Port 3000 des Hosts auf Port 80 des Containers weitergeleitet:
 
-Host
+  Host
 Port 3000
     ↓
 Container
-Port 80
+ Port 80
     ↓
-Nginx
+  Nginx
 
 ExposedPorts beschreibt den vorgesehenen Container-Port. Die Option '-p' richtet dagegen die tatsächliche Portweiterleitung zwischen Host und Container ein.
 
@@ -77,13 +61,13 @@ Damit lässt sich nachvollziehen, was beim Start des Containers ausgeführt wird
 
 Vereinfacht:
 
-ENTRYPOINT
+     ENTRYPOINT
 /docker-entrypoint.sh
-       +
-      CMD
-nginx -g "daemon off;"
-       ↓
-Nginx-Prozess
+         +
+        CMD
+ nginx -g "daemon off;"
+         ↓
+   Nginx-Prozess
 
 'daemon off;' sorgt dafür, dass Nginx im Vordergrund läuft. Dies ist für einen Container wichtig, da der laufende Hauptprozess den Container am Leben hält.
 
@@ -127,7 +111,7 @@ Damit ist nachvollziehbar, dass die beim Start angegebene Option '-p 3000:80' al
 
 ## NetworkSettings
 
-NetworkSettings enthält Informationen über die aktuelle Netzwerkanbindung. Der Container ist dem Docker-Netzwerk bridge zugeordnet.
+NetworkSettings enthält Informationen über die aktuelle Netzwerkanbindung. Der Container ist dem Docker-Netzwerk 'bridge' zugeordnet.
 
 Beim laufenden Container sind unter anderem folgende Werte vorhanden:
 
@@ -157,29 +141,29 @@ localhost:3000
 Die Portweiterleitung führt anschließend zum Port 80 des Containers:
 
 Client / Browser / curl
-        │
-        │ localhost:3000
-        ▼
-   Docker-Host
-        │
-        │ Portweiterleitung
-        ▼
-    Container
-  172.17.0.2:80
-        │
-        ▼
-      Nginx
+          │
+          │ localhost:3000
+          ▼
+     Docker-Host
+          │
+          │ Portweiterleitung
+          ▼
+      Container
+    172.17.0.2:80
+          │
+          ▼
+        Nginx
 
 ## Mounts und Container-Dateisystem
 
-Der Bereich Mounts enthielt ```bash "Mounts": [] ```. Das bedeutet, dass für den Container keine zusätzlichen Docker-Mounts konfiguriert wurden. Dies bedeutet nicht, dass der Container kein Dateisystem besitzt. Der Container verfügt weiterhin über die Dateien und Verzeichnisse, die aus seinem Image stammen.
-Ein zusätzlicher Mount stellt dagegen beispielsweise eine Verbindung zwischen einem Host-Verzeichnis bzw. einem Docker-Volume und einem Verzeichnis innerhalb des Containers her.
+Der Bereich Mounts enthält ```bash "Mounts": [] ```. Das bedeutet, dass für den Container keine zusätzlichen Docker-Mounts konfiguriert wurden. Dies bedeutet nicht, dass der Container kein Dateisystem besitzt. Der Container verfügt weiterhin über die Dateien und Verzeichnisse, die aus seinem Image stammen.
+Ein zusätzlicher Mount stellt dagegen beispielsweise eine Verbindung zwischen einem/r Host-Verzeichnis/Datei bzw. einem Docker-Volume und einem Verzeichnis innerhalb des Containers her.
 
 Der untersuchte Container verwendete als Storage-Treiber ```bash "Driver": "overlayfs" ```. Damit wird das Dateisystem des Containers auf Basis der Image-Layer bereitgestellt. Die Unterscheidung zwischen dem normalen Container-Dateisystem und zusätzlichen Mounts wird später bei der Betrachtung von Volumes und Persistenz wichtig.
 
 ## RestartPolicy
 
-Unter HostConfig war außerdem zu sehen:
+Unter HostConfig ist außerdem zu sehen:
 
 "RestartPolicy": {
     "Name": "no"
@@ -247,7 +231,7 @@ Der Container ist somit nicht lediglich „ein Programm in einer Box“. Die Doc
 
 ## Übergang zum eigenen Taskmanager-Container
 
-Der Nginx-Container wurde als fertiges Beispiel untersucht. Als nächster Schritt soll der bereits vorhandene Taskmanager selbst containerisiert werden. Dafür muss zunächst ermittelt werden, welche Bestandteile die Anwendung benötigt:
+Der Nginx-Container wurde als fertiges Beispiel untersucht. Als nächster Schritt soll der bereits vorhandene Taskmanager selbst containerisiert werden. Dafür muss festgelegt werden, welche Bestandteile die Anwendung benötigt:
 
 Taskmanager
 ├── Python / Flask
@@ -257,21 +241,21 @@ Taskmanager
 ├── benötigte Python-Abhängigkeiten
 └── SQLite-Datenbank
 
-Dabei ist zwischen Anwendungsdateien und persistenten Daten zu unterscheiden. Die Anwendungsdateien werden Bestandteil des Docker-Images. Die Frage, wie die SQLite-Datenbank dauerhaft erhalten bleibt, wird später beim Thema Volumes und Persistenz behandelt. Für den Bau des eigenen Images wird eine Dockerfile verwendet.
+Dabei ist zwischen Anwendungsdateien und persistenten Daten zu unterscheiden. Die Anwendungsdateien werden Bestandteil des Docker-Images. Die Frage, wie die SQLite-Datenbank dauerhaft erhalten bleibt, wird später beim Thema Containerisierung des Taskmanagers behandelt. Für den Bau des eigenen Images wird eine Dockerfile verwendet.
 
 Der grundlegende Zusammenhang lautet:
 
-Dockerfile
-    │
-    │ docker build
-    ▼
+ Dockerfile
+     │
+     │ docker build
+     ▼
 Docker Image
-    │
-    │ docker run
-    ▼
-Container
-    │
-    ▼
+     │
+     │ docker run
+     ▼
+ Container
+     │
+     ▼
 Taskmanager
 
 Damit wechselt der Lernschritt von der Untersuchung eines fertigen Containers zum eigenständigen Erstellen eines Containers für die eigene Anwendung.

@@ -30,7 +30,7 @@ IMAGE          CREATED       CREATED BY                                      SIZ
 
 Was zeigt docker image history?
 
-Zeigt vereinfacht, aus welchen Schichten bzw. Anweisungen das Image aufgebaut wurde. Ganz unten z.B. befindet sich '7 weeks ago   # debian.sh --arch 'amd64' out/ 'trixie' '@1…   87.4MB', das ist die Basis.
+Sie zeigt vereinfacht, aus welchen Schichten bzw. Anweisungen das Image aufgebaut wurde. In der untersten Zeile steht, '7 weeks ago   # debian.sh --arch 'amd64' out/ 'trixie' '@1…   87.4MB', das ist die Basis des Images.
 
 ### Das Image basiert auf Debian
 
@@ -38,76 +38,74 @@ Ganz unten steht 'trixie'. Das ist der Codename der Debian-Version, auf der dies
 
 ### EXPOSE 80/tcp 
 
-'EXPOSE 80/tcp' ist keine Portweiterleitung. Im Image steht 'EXPOSE map[80/tcp:{}]'. Das bedeutet sinngemäß, dieses Image beschreibt, dass die Anwendung Port 80/TCP verwendet bzw. für diesen Port vorgesehen ist. Aber 'EXPOSE 80/tcp' bedeutet nicht Host:80 → Container:80. Die tatsächliche Weiterleitung entsteht erst durch: '-p 3000:80'.
+'EXPOSE 80/tcp' ist keine Portweiterleitung. Im Image steht 'EXPOSE map[80/tcp:{}]'. Das bedeutet sinngemäß, dieses Image beschreibt, dass die Anwendung Port 80/TCP verwendet bzw. für diesen Port vorgesehen ist. Aber 'EXPOSE 80/tcp' bedeutet nicht Host:80 → Container:80. Die tatsächliche Weiterleitung entsteht erst durch: '-p 3000:80'. Das ist eine sehr wichtige Unterscheidung.
 
 Also ergibt sich:
 
-Image:
-EXPOSE 80/tcp
-    ↓
-Container:
+        Image:
+    EXPOSE 80/tcp
+          ↓
+      Container:
 Nginx hört auf 80/tcp
-    ↓
+          ↓
 docker run -p 3000:80
-    ↓
-Host:
-3000 → Container:80
-
-Das ist eine sehr wichtige Unterscheidung.
+          ↓
+        Host:
+ 3000 → Container:80
 
 ### CMD 
 
-Ganz oben steht 'CMD ["nginx" "-g" "daemon off;"]'. Hier erklärt sich, warum der Container überhaupt Nginx ausführt. CMD legt fest, welcher Standardbefehl beim Start des Containers verwendet werden soll. Und 'daemon off;' sorgt dafür, dass Nginx im Vordergrund läuft. Das ist für Container sehr wichtig.
+In der obersten Zeile steht, 'CMD ["nginx" "-g" "daemon off;"]'. Hier erklärt sich, warum der Container überhaupt Nginx ausführt. CMD legt fest, welcher Standardbefehl beim Start des Containers verwendet werden soll. Und 'daemon off;' sorgt dafür, dass Nginx im Vordergrund läuft. Das ist für Container sehr wichtig.
 
 Denn folgendes ist nicht erwünscht:
 
-Container startet
-   ↓
-Nginx startet
-   ↓
-Nginx geht in Hintergrund
-   ↓
+                  Container startet
+                         ↓
+                   Nginx startet
+                         ↓
+              Nginx geht in Hintergrund
+                         ↓
 Container hat keinen relevanten Vordergrundprozess mehr
-   ↓
-Container beendet sich
+                         ↓
+               Container beendet sich
 
-SONDERN:
+Sondern:
 
-Container startet
-   ↓
-Nginx startet
-   ↓
+     Container startet
+             ↓
+       Nginx startet
+             ↓
 Nginx bleibt im Vordergrund
-   ↓
-Container läuft
+             ↓
+      Container läuft
 
 Mit dem Befehl ```bash docker run nginx ``` bleibt das Terminal „besetzt“, weil Nginx im Vordergrund läuft. Mit 'docker run -d ...' wird dagegen der Container detached gestartet. Und damit kann das Modell erweitert werden.
 
 Bisher:
 
-Image
-  ↓
+  Image
+    ↓
 Container
-  ↓
-Prozess
+    ↓
+ Prozess
 
 Jetzt wird deutlich mehr sichtbar:
 
-Dockerfile
-    ↓
-Build
-    ↓
-Layer
-    ↓
-Image
-    ↓
-docker run
-    ↓
-Container
-    ↓
+   Dockerfile
+       ↓
+     Build
+       ↓
+     Layer
+       ↓
+     Image
+       ↓
+    docker run
+       ↓
+   Container
+       ↓
 CMD / ENTRYPOINT
-    ↓
-Prozess
+       ↓
+    Prozess
 
 ### ENTRYPOINT und CMD
 
@@ -116,38 +114,38 @@ ENTRYPOINT legt fest, welches Programm bzw. welches Startskript beim Start des C
 
 Beim Nginx-Image:
 
-ENTRYPOINT
-    ↓
+     ENTRYPOINT
+         ↓
 /docker-entrypoint.sh
 
 Das ist ein Startskript des Nginx-Images. Es kann beispielsweise vorbereitende Aufgaben erledigen und anschließend den eigentlichen Nginx-Prozess starten.
 
 Vereinfacht:
 
-Container startet
-       ↓
+ Container startet
+        ↓
 docker-entrypoint.sh
-       ↓
-Vorbereitungen
-       ↓
-Nginx starten
+        ↓
+   Vorbereitungen
+        ↓
+   Nginx starten
 
 CMD hingegen gibt den Standardbefehl bzw. die Standardargumente für den Container vor. Damit wird Nginx gestartet und mit 'daemon off;' angewiesen, im Vordergrund zu bleiben. Das ist für Container wichtig, weil der laufende Hauptprozess den Lebenszyklus des Containers bestimmt.
 
 Das vereinfachte Modell lautet daher:
 
-Container starten
-       ↓
-ENTRYPOINT
-       ↓
+ Container starten
+         ↓
+    ENTRYPOINT
+         ↓
 docker-entrypoint.sh
-       ↓
-CMD
-       ↓
-nginx
-       ↓
-Nginx läuft
-       ↓
-Container läuft
+         ↓
+        CMD
+         ↓
+       nginx
+         ↓
+    Nginx läuft
+         ↓
+   Container läuft
 
 'ENTRYPOINT' definiert den Einstiegspunkt des Containers. 'CMD' definiert den standardmäßig auszuführenden Befehl bzw. die Standardargumente.

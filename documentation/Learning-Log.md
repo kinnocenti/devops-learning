@@ -99,3 +99,15 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen oder ande
 ## 04.09.2026
 
 - begonnen die Dockerfile zu erstellen
+
+## 07.09.2026
+
+- Dockerfile fertiggestellt
+
+## 08.09.2026
+
+- Containerisierung des Taskmanagers
+
+## 10.09.2026
+
+- 

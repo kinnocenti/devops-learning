@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+
     connection = sqlite3.connect("taskmanager.db")
     connection.row_factory = sqlite3.Row
     
@@ -50,6 +51,7 @@ def home():
 
 @app.route("/task/<int:task_id>")
 def task_detail(task_id):
+
     connection = sqlite3.connect("taskmanager.db")
     connection.row_factory = sqlite3.Row
 
@@ -112,6 +114,7 @@ def create_group():
 
     connection = sqlite3.connect("taskmanager.db")
     connection.row_factory = sqlite3.Row
+
     cursor = connection.cursor()
 
     if request.method == "POST":
@@ -139,9 +142,10 @@ def create_group():
 
 @app.route("/create-task", methods=["GET", "POST"])
 def create_task():
-
+    
     connection = sqlite3.connect("taskmanager.db")
     connection.row_factory = sqlite3.Row
+
     cursor = connection.cursor()
 
     if request.method == "POST":

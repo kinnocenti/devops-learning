@@ -2,7 +2,8 @@
 
 Docker ist eine Plattform zur Entwicklung, Bereitstellung und Ausführung von Anwendungen in Containern. Container ermöglichen es, eine Anwendung zusammen mit ihren benötigten Abhängigkeiten in einer isolierten und reproduzierbaren Umgebung auszuführen.
 
-Ein Container ist eine laufende Instanz eines Docker-Images. Ein Image dient dabei als unveränderliche Vorlage, aus der ein oder mehrere Container erstellt werden können. Im Gegensatz zu einer virtuellen Maschine enthält ein Container kein vollständiges eigenes Betriebssystem und keinen eigenen Kernel. Container nutzen den Kernel des Hostsystems und sind dadurch wesentlich ressourcenärmer und schneller zu starten als virtuelle Maschinen.
+Ein Container ist eine laufende Instanz eines Docker-Images. Ein Image beschreibt dabei den Ausgangszustand und die benötigten Bestandteile eines Containers und dient als Vorlage, aus der ein oder mehrere Container erstellt werden können. 
+Ein einmal erstelltes Image wird dabei grundsätzlich nicht direkt verändert. Änderungen werden üblicherweise durch das Erstellen eines neuen Images bzw. neuer Image-Layer abgebildet. Im Gegensatz zu einer virtuellen Maschine enthält ein Container kein vollständiges eigenes Betriebssystem und keinen eigenen Kernel. Container nutzen den Kernel des Hostsystems und sind dadurch wesentlich ressourcenärmer und schneller zu starten als virtuelle Maschinen.
 
 ## Die grundlegenden Bestandteile von Docker
 

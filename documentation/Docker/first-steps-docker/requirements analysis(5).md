@@ -1,18 +1,18 @@
 # Anforderungsanalyse
 
-Bevor eine Anwendung containerisiert wird, sollte zunächst geklärt werden, welche Voraussetzungen sie für ihren Betrieb benötigt. Die Dockerfile sollte anschließend genau diese Anforderungen abbilden. Ausgangspunkt ist die Frage, was benötigt die Anwendung, um unabhängig von der bisherigen lokalen Umgebung ausgeführt werden zu können? Damit wird eine Anforderungsanalyse vor der Containerisierung durchgeführt.
+Bevor eine Anwendung containerisiert wird, sollte zunächst geklärt werden, welche Voraussetzungen sie für ihren Betrieb benötigt. Die Dockerfile sollte anschließend genau diese Anforderungen abbilden. Ausgangspunkt ist die Frage, was benötigt die Anwendung, damit sie unabhängig von der bisherigen lokalen Umgebung ausgeführt werden kann? Deshalb wird eine Anforderungsanalyse vor der Containerisierung durchgeführt.
 
 Was braucht diese Anwendung?
-    ↓
-Welche Dateien?
-Welche Laufzeit?
-Welche Abhängigkeiten?
-Welche Konfiguration?
-Welche Daten?
-    ↓
-Docker Image
-    ↓
-Container
+           ↓
+     Welche Dateien?
+     Welche Laufzeit?
+  Welche Abhängigkeiten?
+  Welche Konfiguration?
+     Welche Daten?
+           ↓
+     Docker Image
+           ↓ 
+       Container
 
 ## Dateien und Anwendungscode
 
@@ -45,10 +45,10 @@ Welche zusätzlichen Softwarepakete oder Bibliotheken benötigt die Anwendung? D
 
 Zum Beispiel:
 
-Anwendung
-  ↓
-Flask
-  ↓
+        Anwendung
+            ↓
+          Flask
+            ↓
 weitere Flask-Abhängigkeiten
 
 Die benötigten Abhängigkeiten sollten möglichst nachvollziehbar und reproduzierbar festgehalten werden.
@@ -73,21 +73,21 @@ Ein Container kann jederzeit beendet, gelöscht und neu erstellt werden. Daten, 
 Aus der Anforderungsanalyse lässt sich anschließend ableiten, welche Bestandteile das Docker-Image benötigt:
 
 Was benötigt die Anwendung?
-       │
-       ├── Dateien / Anwendungscode
-       ├── Laufzeitumgebung
-       ├── Abhängigkeiten
-       ├── Konfiguration
-       └── Daten / Persistenz
-       │
-       ↓
-Container-Definition
-       ↓
-   Docker Image
-       ↓
-    Container
-       ↓
-laufende Anwendung
+             │
+             ├── Dateien / Anwendungscode
+             ├── Laufzeitumgebung
+             ├── Abhängigkeiten
+             ├── Konfiguration
+             └── Daten / Persistenz
+             │
+             ↓
+    Container-Definition
+             ↓
+       Docker Image
+             ↓
+         Container
+             ↓
+     laufende Anwendung
 
 Die Dockerfile ist damit nicht der Ausgangspunkt der Containerisierung, sondern das Ergebnis der vorherigen Anforderungsanalyse. Zuerst wird ermittelt, was die Anwendung benötigt. Anschließend wird beschrieben, wie diese Voraussetzungen in einem Container bereitgestellt werden.
 
@@ -119,4 +119,6 @@ Die 'requirements.txt'-Datei ist eine einfache Textdatei in der Programmiersprac
 Flask==3.1.3
 ```
 
-Damit ist die Datei fertig und im nächsten Schritt kann mit der Erstellung der Dockerfile begonnen werden.
+Hinweis: Hier fiel die Entscheidung auf die Version von Flask, die vom Host verwednet wird.
+
+Damit ist die Anforderungsanalyse abgeschlossen und 'requirements.txt' fertig. Im nächsten Schritt wird mit der Erstellung der Dockerfile begonnen.
