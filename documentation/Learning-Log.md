@@ -111,3 +111,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 10.09.2026
 
 - Testung des Taskmanagers
+
+## 11.09.2026
+
+- Erste Schritte zum Deployment

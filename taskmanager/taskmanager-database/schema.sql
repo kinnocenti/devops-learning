@@ -170,13 +170,15 @@ SET deadline = '30.09.2026'
 WHERE id = 4;
 
 SELECT *
-FROM groups;
+FROM tasks;
 
 UPDATE tasks
 SET description = 'Auf keinen Fall vergessen!'
 WHERE id = 4;
 
-
+UPDATE tasks 
+SET group_id = 7
+WHERE id = 7;
 
 
 

@@ -34,4 +34,4 @@ Es konnte nachgewiesen werden, dass alle Links funktionieren, Daten vom Taskmang
 
 Nach der Testung wird der Taskmanager mit ```bash docker stop taskmanager ``` beendet.
 
-Da die Testung erfolgreich war, kommt nun der nächste große Schritt, das Deployment des Taskmanagers. Also die Bereitsstellung des Taskmanager-Containers.
+Da die Testung erfolgreich war, kommt nun der nächste große Schritt, das Deployment des Taskmanagers. Also die Bereitstellung des Taskmanager-Containers.
