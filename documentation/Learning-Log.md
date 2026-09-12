@@ -115,3 +115,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 11.09.2026
 
 - Erste Schritte zum Deployment
+
+## 12.09.2026
+
+- Anpassung der Dockerfile für das Deployment
