@@ -172,6 +172,9 @@ WHERE id = 4;
 SELECT *
 FROM tasks;
 
+SELECT *
+FROM groups;
+
 UPDATE tasks
 SET description = 'Auf keinen Fall vergessen!'
 WHERE id = 4;

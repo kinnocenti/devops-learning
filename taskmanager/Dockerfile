@@ -3,7 +3,9 @@ FROM python:3.12-slim-trixie
 WORKDIR /app
 
 RUN groupadd --gid 1000 appuser \
-    && useradd --uid 1000 --gid 1000 appuser
+    && useradd --uid 1000 --gid 1000 appuser \
+    && mkdir /data \
+    && chown appuser:appuser /data
 
 COPY requirements.txt .
 

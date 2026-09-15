@@ -1,17 +1,16 @@
-# Anpassung der Dockerfile für das Deployment
+# Erstes Security-Hardening
 
-Für das Deployment muss die Dockerfile angepasst werden. Zunächst wird theoretisch hergeleitet, warum die Anpassungen vorgenommen werden müssen. Dann werden die notwendigen Zeilen eingefügt und die Befhle erklärt.
+Nach der erfolgreichen Containerisierung des Taskmanagers wurde die Anwendung zunächst als root im Container ausgeführt. Da der Flask-Prozess für seine eigentliche Aufgabe keine Root-Rechte benötigt, wurde im Rahmen des Security-Hardening das Prinzip Least Privilege angewendet. Ein Prozess soll nur die Berechtigungen besitzen, die er für seine Aufgabe tatsächlich benötigt.
 
-## Warum wird angepasst?
+## Ausgangssituation
 
-Der Container soll als Nicht-Root-Benutzer laufen. Beim bisherigen Containerstart lief die Flask-Anwendung als root:
+Beim bisherigen Containerstart lief die Flask-Anwendung als root:
 
 uid=0(root) gid=0(root)
 
 Das funktioniert technisch, ist für eine Anwendung aber nicht notwendig. Ein kompromittierter Anwendungsprozess würde dadurch mit mehr Rechten laufen, als er für seine eigentliche Aufgabe benötigt.
-Hier greift das Prinzip Least-Privilege. Ein Prozess soll nur die Berechtigungen besitzen, die er für seine Aufgabe tatsächlich benötigt. Deshalb soll Flask künftig nicht mehr als root, sondern als normaler Benutzer im Container laufen.
 
-### Zusammenhang mit dem Bind Mount
+## Zusammenhang mit dem Bind Mount
 
 Die SQLite-Datenbank liegt auf dem Host und wird in den Container eingebunden:
 
@@ -54,7 +53,7 @@ Da die Datenbankdatei dem Besitzer mit UID 1000 Schreibrechte gewährt, kann der
 
 Die GID 1000 ist für diesen konkreten Schreibzugriff zunächst nicht erforderlich, da der Zugriff über die Owner-Rechte der Datei erfolgt. Gruppenrechte werden später relevant, wenn mehrere Prozesse oder Benutzer bewusst über eine gemeinsame Gruppe auf Dateien zugreifen sollen.
 
-### Ziel der Änderung
+## Ziel der Änderung
 
 Aus:
 
@@ -88,7 +87,7 @@ Nicht-Root-Benutzer
 
 Damit wird der Anwendungsprozess mit deutlich weniger Rechten ausgeführt, während der notwendige Zugriff auf die persistente Datenbank erhalten bleibt. Die Dockerfile wird dafür um zwei wesentliche Elemente ergänzt:
 
-- einen Benutzer mit UID 1000 und GID 1000 (da Gruppen später behandelt werden, wird auch schon die GID festgelegt) anlegt
+- einen Benutzer mit UID 1000 und GID 1000 angelegt (da Gruppen später behandelt werden, wird auch schon die GID festgelegt)
 - festlegen, dass die Anwendung künftig unter einem Benutzer läuft
 
 ## Anpassungen in der Dockerfile

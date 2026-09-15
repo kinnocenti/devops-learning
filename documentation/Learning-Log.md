@@ -119,3 +119,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 12.09.2026
 
 - Anpassung der Dockerfile für das Deployment
+
+## 14.09.2026
+
+- aktuelle Dockerfile-Version gestestet, Fehlersuche und Fehlerbehebung
