@@ -18,7 +18,7 @@ Die SQLite-Datenbank liegt auf dem Host und wird in den Container eingebunden:
   taskmanager.db
      UID 1000
          │
-         │ Bind Mount
+         │ Bind-Mount
          ▼
      Container
 /app/taskmanager.db

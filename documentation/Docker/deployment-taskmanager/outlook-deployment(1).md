@@ -246,10 +246,10 @@ Wie schon erwähnt wird sich Sicherheit thematisch durch das ganze Projekt ziehe
 - Dependencies   → Gibt es bekannte Schwachstellen?
 - Ports          → Was muss überhaupt erreichbar sein?
 - Netzwerk       → Welche Container dürfen miteinander sprechen?
-- Datenbank	     → Ist PostgreSQL von außen erreichbar?
+- Datenbank	  → Ist PostgreSQL von außen erreichbar?
 - Persistenz     → Wer darf auf die Daten zugreifen?
 - Secrets        → Wo liegen Passwörter und Schlüssel?
 - Deployment     → Wer kann den Dienst erreichen?
-- HTTPS	         → Werden Daten verschlüsselt übertragen?
-- Logging	     → Können sicherheitsrelevante Ereignisse nachvollzogen werden?
-- Updates	     → Wie werden Images und Dependencies aktualisiert?
+- HTTPS	       → Werden Daten verschlüsselt übertragen?
+- Logging	       → Können sicherheitsrelevante Ereignisse nachvollzogen werden?
+- Updates	       → Wie werden Images und Dependencies aktualisiert?

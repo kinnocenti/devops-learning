@@ -148,9 +148,9 @@ RUN groupadd --gid 1000 appuser \
     && chown appuser:appuser /data
 ```
 
-## Anpassung des Bind Mounts
+## Anpassung des Bind-Mounts
 
-Der bisherige Bind Mount:
+Der bisherige Bind-Mount:
 
 Host taskmanager.db
         ↓
@@ -161,7 +161,7 @@ muss auch auf den neuen Datenpfad geändert werden:
 Host
 /<Pfad>/devops-learning/taskmanager/taskmanager.db
                         │
-                        │Bind Mount
+                        │Bind-Mount
                         ▼
               Container
               /data/taskmanager.db
@@ -172,7 +172,7 @@ Damit folgenden 'docker run'-Befehl angepasst verwenden:
 docker run --name taskmanager -p 3001:5000 -v /<Pfad>/devops-learning/taskmanager/taskmanager.db:/data/taskmanager.db taskmanager
 ```
 
-Der verwendete Mount kann weiterhin ohne explizites ':rw' angegeben werden, da in ein Bind Mount standardmäßig read-write eingebunden wird.
+Der verwendete Mount kann weiterhin ohne explizites ':rw' angegeben werden, da in ein Bind-Mount standardmäßig read-write eingebunden wird.
 
 Wichtig ist die Unterscheidung:
 

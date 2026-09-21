@@ -64,7 +64,7 @@ docker run
 └── taskmanager
        → zu verwendendes Image
 
-Hinweis: Mit '-v' wird in diesem Befehl ein Bind Mount eines Volumens durchgeführt. Das bedeutet, dass ein Verzeichnis oder eine Datei auf dem Host direkt mit einem Ordner im Docker-Container verbunden wird. 
+Hinweis: Mit '-v' wird in diesem Befehl ein Bind-Mount eines Volumens durchgeführt. Das bedeutet, dass ein Verzeichnis oder eine Datei auf dem Host direkt mit einem Ordner im Docker-Container verbunden wird. 
 
 Mit den beiden folgenden Befehlen kann geprüft werden, ob der Container auf die Verzeichnisse zugreifen und die darin enthaltenen Dateien korrekt eingefügt wurden mit dem Container-Build. Mit ```bash docker exec <Containername> <Befehl> ``` wird der Befehl im Container ausgeführt und die Ausgabe aus dem Container angezeigt.
 
@@ -110,6 +110,6 @@ Und zusätzlich:
 
     Host: taskmanager.db
             │
-            │ Bind Mount
+            │ Bind-Mount
             ▼
 Container: /app/taskmanager.db
