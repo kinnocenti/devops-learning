@@ -98,7 +98,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 
 ## 04.09.2026
 
-- begonnen die Dockerfile zu erstellen
+- Begonnen die Dockerfile zu erstellen
 
 ## 07.09.2026
 
@@ -122,8 +122,12 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 
 ## 14.09.2026
 
-- aktuelle Dockerfile-Version gestestet, Fehlersuche und Fehlerbehebung
+- Aktuelle Dockerfile-Version gestestet, Fehlersuche und Fehlerbehebung
 
 ## 21.09.2026
 
-- Erstellung eines Volumes (vom Bind-Mount zum Volume)
+- Vom Bind-Mount zum Volume
+
+## 22.09.2026
+
+- Erstellung, Einbindung und Testung des Volumes für den Taskmanager
