@@ -9,7 +9,7 @@ Das neu erstellte Volume ist zunächst leer und enthält noch nicht die bereits 
 Für die Übertragung wird ein temporärer Container aus dem bereits vorhandenen taskmanager-Image verwendet. Dabei werden zwei Speicherbereiche eingebunden:
 
 Host
-/home/kath/Projects/devops-learning/taskmanager/taskmanager.db
+/<Pfad>/devops-learning/taskmanager/taskmanager.db
         │
         │ Bind-Mount, read-only
         ▼
@@ -28,7 +28,7 @@ Die bestehende Datenbank wird anschließend mit cp in das Volume kopiert:
 ```bash
 docker run --rm \
   -v taskmanager-data:/data \
-  -v /home/kath/Projects/devops-learning/taskmanager/taskmanager.db:/source/taskmanager.db:ro \
+  -v /<Pfad>/devops-learning/taskmanager/taskmanager.db:/source/taskmanager.db:ro \
   taskmanager \
   cp /source/taskmanager.db /data/taskmanager.db
 ```
@@ -94,7 +94,7 @@ Der entscheidende Unterschied zum bisherigen Containerstart besteht beim Mount:
 Bisher:
 
 Host
-/home/kath/Projects/devops-learning/taskmanager/taskmanager.db
+/<Pfad>/devops-learning/taskmanager/taskmanager.db
                                │
                                │ Bind Mount
                                ▼
@@ -185,4 +185,5 @@ Dabei wurden folgende Punkte praktisch bestätigt:
 - Der Taskmanager kann Daten aus dem Volume lesen und darin speichern.
 - Das Löschen des Containers führt nicht zum Verlust der Daten im Volume.
 - Ein neuer Container kann mit demselben Volume auf die vorhandenen Daten zugreifen.
-- Der Taskmanager verwendet damit nun für den praktischen Test das Docker Volume als persistenten Datenspeicher.
+- Der Taskmanager verwendet damit nun für den praktischen Test das Docker Volume als    
+  persistenten Datenspeicher.

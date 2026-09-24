@@ -131,3 +131,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 22.09.2026
 
 - Erstellung, Einbindung und Testung des Volumes für den Taskmanager
+
+## 24.09.2026
+
+- Docker-Storage und -Dateisystem

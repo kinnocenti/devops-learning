@@ -16,15 +16,15 @@ Also:
 
 ## Vergleich von Bind-Mount und Volume
 
-Bind Mount                          Docker Volume
------------------------------------------------------------------------------------
-konkreter Host-Pfad                 Volume-Name
-/<Pfad>/taskmanager.db              taskmanager-data
-Host-Pfad wird direkt angegeben     Docker verwaltet den Speicherort
-sehr transparent                    weniger abhängig von einem konkreten Host-Pfad
-Host-Dateirechte direkt relevant	ebenfalls Berechtigungen relevant
-gut für Entwicklung/                gut für Docker-verwalteten persistenten Storage
-gezielten Host-Dateizugriff         
+Bind Mount                        |  Docker Volume
+------------------------------------------------------------------------------------
+konkreter Host-Pfad               |  Volume-Name
+/<Pfad>/taskmanager.db            |  taskmanager-data
+Host-Pfad wird direkt angegeben   |  Docker verwaltet den Speicherort
+sehr transparent                  |  weniger abhängig von einem konkreten Host-Pfad
+Host-Dateirechte direkt relevant	|  ebenfalls Berechtigungen relevant
+gut für Entwicklung/              |  gut für Docker-verwalteten persistenten Storage
+gezielten Host-Dateizugriff       |  
 
 ## Erstellen eines Docker Volumes
 
@@ -69,7 +69,7 @@ Das erstellte Docker-Volume 'taskmanager-data' verwendet den lokalen Volume-Trei
 
 ## Einbindung in einen Container
 
-Im folgenden Beispiel wird das Image 'alpine' (leichtgewichtig und gut für Tests) verwendet. Der damit erzeugte Container soll im weiteren nur die Persistenz des Volumes darlegen und die Syntax des 'docker run'-Befehls aufzeigen. Dafür wird mit dem folgenden Befehl ein Testcontainer gestartet:
+Im folgenden Beispiel wird das Image 'alpine' (leichtgewichtig und sehr gut geeignet für Tests) verwendet. Der damit erzeugte Container soll im weiteren nur die Persistenz der Daten des Volumes darlegen und die Syntax des 'docker run'-Befehls aufzeigen. Dafür wird mit dem folgenden Befehl ein Testcontainer gestartet:
 
 ```bash
 docker run --name volume-test \
