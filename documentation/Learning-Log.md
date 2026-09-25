@@ -135,3 +135,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 24.09.2026
 
 - Docker-Storage und -Dateisystem
+
+## 25.09.2026
+
+- Docker-Mounts und -Dateisystem
