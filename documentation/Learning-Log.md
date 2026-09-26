@@ -139,3 +139,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 25.09.2026
 
 - Docker-Mounts und -Dateisystem
+
+## 26.06.2026
+
+- Verbindung von VScode, Host und Docker

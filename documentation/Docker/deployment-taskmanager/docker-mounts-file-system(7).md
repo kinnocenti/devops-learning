@@ -165,7 +165,6 @@ Container A
             ▼
        Datei gelöscht
 
-
 Damit wurde das bisherige Verständnis bestätigt. Der Container-Layer besitzt grundsätzlich denselben Lebenszyklus wie der Container. Das bedeutet nicht, dass Container grundsätzlich keine Dateien schreiben können. Sie können sehr wohl Dateien erzeugen und verändern.
 Daten, die ausschließlich im Container-Layer liegen, sind also nicht für eine dauerhafte Speicherung über den Lebenszyklus des Containers hinweg geeignet.
 
@@ -195,7 +194,30 @@ Damit liegt die Datenbank nicht im flüchtigen Container-Layer.
 
 ## Volume auf einen vorhandenen Pfad mounten
 
-Ein besonders wichtiger Test kann mit einem eigenen Test-Image durchgeführt werden. Das Test-Image enthält bereits eine Datei '/test/original.txt'. Der Inhalt der Datei lautete 'Ich komme aus dem Image'. Das wird zunächst ohne Volume überprüft:
+Ein besonders wichtiger Test kann mit einem eigenen Test-Image durchgeführt werden. Dafür wird zunächst ein neuer Ordner 'docker-mount-test' Im Testverzeichnis angelegt mit ```bash mkdir -p /<Pfad>/docker-mount-test ```. 
+Dann wird im Terminal in den Ordner 'docker-mount-test' gewechselt und mit folgendem Befehl wird die Datei 'original.txt' mit dem Inhalt 'Ich komme aus dem Image' erstellt.
+
+```bash
+echo "Ich komme aus dem Image" > original.txt
+```
+
+Dann wird in 'docker-mount-test' für das Test-Image eine Dockerfile mit folgendem Inhalt angelegt:
+
+```bash
+FROM alpine
+
+RUN mkdir /test
+
+COPY original.txt /test/original.txt
+```
+
+Dann wird mit dem folgenden Befehl der Image-Build durchgeführt:
+
+```bash
+docker build -t mount-test-image .
+```
+
+Das Test-Image enthält bereits eine Datei '/test/original.txt'. Der Inhalt der Datei lautete 'Ich komme aus dem Image'. Das wird zunächst ohne Volume überprüft:
 
 ```bash
 docker run --rm mount-test-image cat /test/original.txt
@@ -205,7 +227,25 @@ Ausgabe:
 
 Ich komme aus dem Image
 
-Damit wird bestätigt, dass sich die Datei tatsächlich im Image befindet.
+Damit wurde praktisch überprüft, dass die Datei während des Image-Builds durch die Anweisung ```bash COPY original.txt /test/original.txt ``` aus dem Build-Kontext in das Image übernommen wurde. Wichtig ist dabei die Unterscheidung zwischen der ursprünglichen Datei und ihrer Kopie im Image.
+
+Das Modell lautet:
+
+Projektverzeichnis auf dem Host
+        │
+        │ docker build
+        │
+        │ COPY original.txt /test/original.txt
+        ▼
+Docker Image
+        │
+        │ docker run
+        ▼
+Container
+        │
+        └── /test/original.txt
+
+Die Datei im Projektverzeichnis bleibt dabei unabhängig von der Datei im Image bestehen.
 
 ## Ein leeres Volume wird erstmals eingebunden
 
@@ -224,11 +264,7 @@ docker run --rm \
   ls -l /test
 ```
 
-Die Datei 'original.txt' war sichtbar.
-
-Das allein würde noch nicht vollständig zeigen, ob die Datei weiterhin aus dem Image stammt oder bereits im Volume vorhanden ist.
-
-Deshalb wurde ein zweiter Test durchgeführt.
+Die Datei 'original.txt' war sichtbar. Das allein würde noch nicht vollständig zeigen, ob die Datei weiterhin aus dem Image stammt oder bereits im Volume vorhanden ist. Deshalb wurde ein zweiter Test durchgeführt.
 
 ## Nachweis, dass die Datei im Volume liegt
 
@@ -547,4 +583,3 @@ Verbindung zu externem Storage
 persistente Daten
 
 Das Verständnis dieser Ebenen bildet die Grundlage für die nächsten Docker-Themen. Insbesondere beim späteren Einsatz mehrerer Container wird wichtig, dass Anwendungscode, temporäre Laufzeitdaten und persistente Daten unterschiedliche Lebenszyklen besitzen können.
-Der nächste größere Lernschritt ist Docker Compose. 
