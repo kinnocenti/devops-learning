@@ -1,6 +1,6 @@
 # VScode, Host und Docker
 
-Hier wird der Zusammenhang zwischen Host-Dateisystem, Docker Volume, Container-Dateisystem und VS Code dargestellt. Dabei wird insbesondere nachvollzogen, wie die Testdatei original.txt zwischen Projektverzeichnis, Docker-Image, Docker-Volume und Container bewegt beziehungsweise kopiert wird.
+Hier wird der Zusammenhang zwischen Host-Dateisystem, Docker Volume, Container-Dateisystem und VScode dargestellt. Dabei wird insbesondere nachvollzogen, wie die Testdatei original.txt zwischen Projektverzeichnis, Docker-Image, Docker-Volume und Container bewegt beziehungsweise kopiert wird.
 
 ## Grundmodell
 
@@ -71,11 +71,11 @@ Host-Dateisystem
       │
       │ Build-Kontext
       ▼
-Docker Build
+Docker-Build
       │
       │ COPY
       ▼
-Docker Image
+Docker-Image
       │
       └── /test/original.txt
 
@@ -95,7 +95,7 @@ Beim Befehl ```bash docker run --rm mount-test-image cat /test/original.txt ``` 
 
 Der Ablauf ist:
 
-Docker Image
+Docker-Image
      │
      │ docker run
      ▼
@@ -133,7 +133,7 @@ Also:
       ▼
 "Bitte genauer"
 
-Docker Image
+Docker-Image
     │
     └── weiterhin alter Stand
 
@@ -141,16 +141,16 @@ Erst ein erneuter Image-Build liest die aktuelle Datei erneut aus dem Build-Kont
 
 ## Kopieren der Datei in das Docker Volume
 
-Das Docker Volume 'mount-copy-test' ist ein eigener Speicherbereich.
+Das Docker-Volume 'mount-copy-test' ist ein eigener Speicherbereich.
 
 Vereinfacht:
 
-Linux Host
+Linux-Host
     │
     ├── Projektverzeichnis
     │      └── original.txt
     │
-    └── Docker Storage
+    └── Docker-Storage
            └── Volume
                 └── mount-copy-test
                      └── _data
@@ -172,7 +172,7 @@ Container
     └── /test
           │
           ▼
-      Docker Volume
+      Docker-Volume
       mount-copy-test
 
 Der Pfad '/test' im Container ist dabei nicht dasselbe Verzeichnis wie '/var/lib/...'. Es handelt sich um zwei verschiedene Pfade innerhalb zweier verschiedener Dateisystemsichten.
@@ -201,10 +201,10 @@ Zwischen VScode und Docker ergibt sich der Zusammenhang über das Host-Dateisyst
     ┌────────────────┴────────────────┐
     │                                 │
     ▼                                 ▼
-VS Code                         Docker Engine
+VScode                         Docker-Engine
     │                                 │
     │                                 ▼
-    |                           Docker Volume
+    |                           Docker-Volume
     │                                 │
     │                                 ▼
     │                      /var/lib/docker/volumes/
@@ -220,7 +220,7 @@ Auch hier entscheidet das Betriebssystem anhand der Identität des zugreifenden 
 
 ## Vergleich der beiden 'original.txt'-Dateien
 
-Anschließend werden die Projektdatei '/home/.../original.txt' und die Volume-Datei '/var/lib/.../original.txt' miteinander verglichen.
+Anschließend werden die Projektdatei '/home/.../original.txt' und die Volume-Datei     '/var/lib/.../original.txt' miteinander verglichen.
 Mit dem Befehl ```bash sudo stat /<Pfad>/original.txt ``` können die Stats beider Dateien ausgegeben werden.
  
 Stat zeigt im Vergleich:
@@ -297,7 +297,7 @@ Host
 /var/lib/docker/volumes/
           │
           ▼
-    Docker Volume
+    Docker-Volume
     mount-copy-test
           │
           ▼
@@ -314,11 +314,11 @@ Der gesamte bisherige Ablauf lässt sich damit zusammenführen:
      ┌────────────────┼────────────────┐
      │                │                │
      ▼                ▼                ▼
-Projektdatei       VS Code       Docker Engine
+Projektdatei       VS Code       Docker-Engine
      │                                 │
      │ Build-Kontext                   │
      ▼                                 ▼
-Docker Build                     Docker Volume
+Docker-Build                     Docker-Volume
      │                          mount-copy-test
      ▼                                 │
    Image                               │
@@ -337,14 +337,13 @@ Dabei existieren mehrere voneinander getrennte Speicherobjekte:
 - Projektdatei
   /home/.../original.txt
 
-- Datei im Docker Image
+- Datei im Docker-Image
   /test/original.txt
 
-- Datei im Docker Volume
+- Datei im Docker-Volume
   /var/.../original.txt
 
-- Datei im Container
-  Sichtbar unter dem Mount-Pfad '/test'
+Hinweis: Die Datei im Container, sichtbar unter dem Mount-Pfad '/test', ist identisch mit der Datei im Docker-Volumen. Sie besitzen dieselbe Inode.
 
 Je nach Vorgang kann Inhalt von einem Bereich in einen anderen kopiert oder ein Speicherbereich über einen Mount in einen Container eingebunden werden.
 Wichtiges Denkmodell
@@ -377,19 +376,19 @@ Durch den Test wurde der Zusammenhang zwischen Host-Dateisystem, Docker-Image, C
 Dabei wurde insbesondere festgestellt:
 
 - Die ursprüngliche original.txt liegt im Projektverzeichnis auf dem Host.
-- COPY übernimmt den Inhalt der Datei in das Docker Image.
+- COPY übernimmt den Inhalt der Datei in das Docker-Image.
 - Beim Erstellen eines Containers wird die Datei aus dem Image sichtbar.
 - Eine Änderung der ursprünglichen Host-Datei verändert ein bereits vorhandenes Image 
   nicht.
 - Ein erneuter Image-Build übernimmt den aktuellen Stand der Quelldatei.
-- Ein Docker Volume besitzt einen eigenen Speicherbereich auf dem Docker Host.
+- Ein Docker-Volume besitzt einen eigenen Speicherbereich auf dem Docker-Host.
 - Der Speicherort eines lokalen Volumes wird von Docker verwaltet.
 - Eine Datei im Volume und die ursprüngliche Projektdatei sind unterschiedliche Dateien.
 - Dies wurde unter anderem anhand unterschiedlicher Inodes und Entstehungszeiten 
   nachgewiesen.
 - Zwischen der Projektdatei und der Datei im Volume findet keine automatische 
   Synchronisation statt.
-- VS Code benötigt keine spezielle Docker-Verbindung, um eine normale Datei des 
+- VScode benötigt keine spezielle Docker-Verbindung, um eine normale Datei des 
   Host-Dateisystems anzuzeigen.
 - Dateisystemberechtigungen bestimmen, welcher Prozess auf welche Dateien und  
   Verzeichnisse zugreifen darf.
