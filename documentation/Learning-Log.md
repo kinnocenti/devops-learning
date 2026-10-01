@@ -143,3 +143,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 26.06.2026
 
 - Verbindung von VScode, Host und Docker
+
+## 01.10.2026
+
+- Docker-Netzwerke – Grundlagen, Bridge-Netzwerk und Container-Kommunikation
