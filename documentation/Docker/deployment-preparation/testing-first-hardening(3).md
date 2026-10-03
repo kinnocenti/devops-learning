@@ -216,7 +216,7 @@ Das Prinzip Least Privilege wurde damit nicht nur theoretisch betrachtet, sonder
 
 Ein wichtiger Punkt ist außerdem die Unterscheidung zwischen:
 
-   Docker Mount-Berechtigung
+   Docker-Mount-Berechtigung
               vs.
 Linux-Dateisystemberechtigungen
 

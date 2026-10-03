@@ -16,7 +16,7 @@ Host
 temporärer Container
 /source/taskmanager.db
 
-Docker Volume
+Docker-Volume
 taskmanager-data
         │
         ▼
@@ -33,11 +33,8 @@ docker run --rm \
   cp /source/taskmanager.db /data/taskmanager.db
 ```
 
-Der Bind Mount der bestehenden Datenbank wird dabei mit ':ro' als read-only eingebunden. Der temporäre Container kann die vorhandene Datenbank somit lesen, aber nicht verändern. Das Schreiben erfolgt ausschließlich in das Docker Volume.
-
-Mit '--rm' wird der temporäre Container nach Abschluss des Kopiervorgangs automatisch entfernt. Das Volume bleibt davon unabhängig bestehen.
-
-Anschließend wird überprüft, ob die Datenbank im Volume vorhanden ist:
+Der Bind-Mount der bestehenden Datenbank wird dabei mit ':ro' als read-only eingebunden. Der temporäre Container kann die vorhandene Datenbank somit lesen, aber nicht verändern. Das Schreiben erfolgt ausschließlich in das Docker-Volume.
+Mit '--rm' wird der temporäre Container nach Abschluss des Kopiervorgangs automatisch entfernt. Das Volume bleibt davon unabhängig bestehen. Anschließend wird überprüft, ob die Datenbank im Volume vorhanden ist:
 
 ```bash
 docker run --rm \
@@ -65,12 +62,12 @@ Ausgabe:
 
 drwxr-xr-x 2 appuser appuser ... /data
 
-Damit sind die bereits beim Non-Root-Container berücksichtigten Dateirechte auch für das Docker Volume passend eingerichtet. Der Benutzer 'appuser' besitzt die erforderlichen Zugriffsrechte auf das Datenverzeichnis und die Datenbankdatei.
-Erst nachdem die Datenbank erfolgreich in das Volume übertragen und die Berechtigungen überprüft wurden, wird der eigentliche Taskmanager-Container vom bisherigen Bind-Mount auf das Docker Volume umgestellt.
+Damit sind die bereits beim Non-Root-Container berücksichtigten Dateirechte auch für das Docker-Volume passend eingerichtet. Der Benutzer 'appuser' besitzt die erforderlichen Zugriffsrechte auf das Datenverzeichnis und die Datenbankdatei.
+Erst nachdem die Datenbank erfolgreich in das Volume übertragen und die Berechtigungen überprüft wurden, wird der eigentliche Taskmanager-Container vom bisherigen Bind-Mount auf das Docker-Volume umgestellt.
 
 ## Umstellung des Taskmanagers vom Bind Mount auf das Docker Volume
 
-Nachdem die bestehende Datenbank erfolgreich in das Volume übertragen und die Zugriffsrechte überprüft wurden, kann der Taskmanager vom bisherigen Bind-Mount auf das Docker Volume umgestellt werden.
+Nachdem die bestehende Datenbank erfolgreich in das Volume übertragen und die Zugriffsrechte überprüft wurden, kann der Taskmanager vom bisherigen Bind-Mount auf das Docker-Volume umgestellt werden.
 
 Zunächst wird der bisherige Container gestoppt und entfernt:
 
@@ -79,7 +76,7 @@ docker stop taskmanager
 docker rm taskmanager
 ```
 
-Dabei wird ausschließlich der Container entfernt. Die bisherige Datenbank auf dem Host und das Docker Volume 'taskmanager-data' bleiben erhalten. Der Taskmanager wird anschließend mit dem Docker Volume neu gestartet:
+Dabei wird ausschließlich der Container entfernt. Die bisherige Datenbank auf dem Host und das Docker-Volume 'taskmanager-data' bleiben erhalten. Der Taskmanager wird anschließend mit dem Docker-Volume neu gestartet:
 
 ```bash
 docker run -d \
@@ -96,14 +93,14 @@ Bisher:
 Host
 /<Pfad>/devops-learning/taskmanager/taskmanager.db
                                │
-                               │ Bind Mount
+                               │ Bind-Mount
                                ▼
                      Container
                      /data/taskmanager.db
 
 Nach der Umstellung:
 
-Docker Volume
+Docker-Volume
 taskmanager-data
     │
     ▼
@@ -129,9 +126,9 @@ Damit wird die gesamte Verarbeitungskette getestet:
           ↓
 /data/taskmanager.db
           ↓
-    Docker Volume
+    Docker-Volume
 
-Die neu erstellte Aufgabe wird nach dem Zurückkehren zur Startseite korrekt innerhalb der Gruppe angezeigt. Damit ist nachgewiesen, dass der Taskmanager die Datenbank aus dem Docker Volume lesen und auch Änderungen darin speichern kann.
+Die neu erstellte Aufgabe wird nach dem Zurückkehren zur Startseite korrekt innerhalb der Gruppe angezeigt. Damit ist nachgewiesen, dass der Taskmanager die Datenbank aus dem Docker-Volume lesen und auch Änderungen darin speichern kann.
 
 ## Persistenztest nach Löschen des Containers
 
@@ -171,11 +168,11 @@ Container B wird erstellt
            ↓
 Daten weiterhin vorhanden
 
-Der Container und der persistente Storage besitzen somit unterschiedliche Lebenszyklen. Der Container kann ersetzt oder gelöscht werden, ohne dass die im Docker Volume gespeicherten Anwendungsdaten dadurch verloren gehen.
+Der Container und der persistente Storage besitzen somit unterschiedliche Lebenszyklen. Der Container kann ersetzt oder gelöscht werden, ohne dass die im Docker-Volume gespeicherten Anwendungsdaten dadurch verloren gehen.
 
 ## Ergebnis
 
-Der Taskmanager wurde erfolgreich vom bisherigen Bind Mount auf das Docker Volume taskmanager-data umgestellt.
+Der Taskmanager wurde erfolgreich vom bisherigen Bind-Mount auf das Docker-Volume 'taskmanager-data' umgestellt.
 
 Dabei wurden folgende Punkte praktisch bestätigt:
 
@@ -185,5 +182,5 @@ Dabei wurden folgende Punkte praktisch bestätigt:
 - Der Taskmanager kann Daten aus dem Volume lesen und darin speichern.
 - Das Löschen des Containers führt nicht zum Verlust der Daten im Volume.
 - Ein neuer Container kann mit demselben Volume auf die vorhandenen Daten zugreifen.
-- Der Taskmanager verwendet damit nun für den praktischen Test das Docker Volume als    
+- Der Taskmanager verwendet damit nun für den praktischen Test das Docker-Volume als    
   persistenten Datenspeicher.

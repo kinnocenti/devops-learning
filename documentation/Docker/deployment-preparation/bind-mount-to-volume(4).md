@@ -1,22 +1,22 @@
 # Vom Bind Mount zum Docker Volume
 
-Der Taskmanager verwendet aktuell einen Bind-Mount, um die SQLite-Datenbank persistent außerhalb des Containers zu speichern. Dieser ist für den ersten lokalen Taskmanager sehr transparent und praktisch. Für einen späteren Deployment-Ansatz kann ein Docker Volume jedoch Vorteile bei der Verwaltung persistenter Daten bieten.
+Der Taskmanager verwendet aktuell einen Bind-Mount, um die SQLite-Datenbank persistent außerhalb des Containers zu speichern. Dieser ist für den ersten lokalen Taskmanager sehr transparent und praktisch. Für einen späteren Deployment-Ansatz kann ein Docker-Volume jedoch Vorteile bei der Verwaltung persistenter Daten bieten.
 
 ## Warum Bind-Mount
 
-Für eine Webanwendung in einem Docker-Container sind Volumes meist die bessere Wahl als Bind Mounts, da sie vollständig von Docker verwaltet werden, sicherer sind und eine deutlich höhere Performance auf Nicht-Linux-Systemen (wie macOS oder Windows) bieten.Während Bind Mounts direkt von der Ordnerstruktur des Host-Betriebssystems abhängen, sind Volumes isoliert und speziell für die Anforderungen von Containern optimiert.
+Für eine Webanwendung in einem Docker-Container sind Volumes meist die bessere Wahl als Bind-Mounts, da sie vollständig von Docker verwaltet werden, sicherer sind und eine deutlich höhere Performance auf Nicht-Linux-Systemen (wie macOS oder Windows) bieten.Während Bind-Mounts direkt von der Ordnerstruktur des Host-Betriebssystems abhängen, sind Volumes isoliert und speziell für die Anforderungen von Containern optimiert.
 
 Also:
 
 - Docker verwaltet den Speicher
 - Anwendung muss keinen konkreten Host-Pfad kennen
 - Container und Storage werden stärker voneinander entkoppelt
-- trotzdem bleibt der Speicher bei einem lokalen Volume auf dem Docker Host
+- trotzdem bleibt der Speicher bei einem lokalen Volume auf dem Docker-Host
 - Linux-Dateirechte verschwinden nicht automatisch
 
 ## Vergleich von Bind-Mount und Volume
 
-Bind Mount                        |  Docker Volume
+Bind-Mount                        |  Docker-Volume
 ------------------------------------------------------------------------------------
 konkreter Host-Pfad               |  Volume-Name
 /<Pfad>/taskmanager.db            |  taskmanager-data

@@ -1,6 +1,6 @@
 # Container-Dateisystem und Mounts
 
-Im bisherigen Verlauf des Docker-Lernprojekts wurden bereits Image-Layer, Container-Layer, Copy-on-Write, Bind-Mounts und Docker Volumes praktisch untersucht. Dabei entstand zunächst folgendes vereinfachtes Modell:
+Im bisherigen Verlauf des Docker-Lernprojekts wurden bereits Image-Layer, Container-Layer, Copy-on-Write, Bind-Mounts und Docker-Volumes praktisch untersucht. Dabei entstand zunächst folgendes vereinfachtes Modell:
 
    Dockerfile
        ↓
@@ -27,7 +27,7 @@ Mit den bisherigen Tests wurde bereits festgestellt:
 - Änderungen im Container-Layer gehören zum Lebenszyklus des Containers.
 - Beim Löschen eines Containers wird dessen Container-Layer entfernt.
 - Image-Layer bleiben erhalten und können für neue Container verwendet werden.
-- Daten in einem Docker Volume bleiben unabhängig vom Container bestehen.
+- Daten in einem Docker-Volume bleiben unabhängig vom Container bestehen.
 - Ein Volume kann von einem neuen Container erneut eingebunden werden.
 - Ein Mount stellt einen externen Speicherbereich an einem bestimmten Pfad innerhalb 
   des Containers bereit.
@@ -57,7 +57,7 @@ Ein Container besitzt aus Sicht der Anwendung ein eigenes Dateisystem. Beispiels
 ├── usr
 └── var
 
-Diese Verzeichnisstruktur ist innerhalb des Containers sichtbar. Sie bedeutet jedoch nicht, dass der Container einen eigenen vollständigen Linux-Kernel oder einen eigenen physischen Computer besitzt. Die Prozesse des Containers verwenden weiterhin den Kernel des Docker Hosts. Das Container-Dateisystem ist daher Teil der isolierten Laufzeitumgebung des Containers.
+Diese Verzeichnisstruktur ist innerhalb des Containers sichtbar. Sie bedeutet jedoch nicht, dass der Container einen eigenen vollständigen Linux-Kernel oder einen eigenen physischen Computer besitzt. Die Prozesse des Containers verwenden weiterhin den Kernel des Docker-Hosts. Das Container-Dateisystem ist daher Teil der isolierten Laufzeitumgebung des Containers.
 
 ## Dateien im Container-Layer
 
@@ -174,7 +174,7 @@ Ein Mount verändert dieses Modell. Ein Speicherbereich außerhalb des Container
 
 Beispielsweise:
 
-Docker Volume
+Docker-Volume
      │
      ▼
 Container:/data
@@ -187,7 +187,7 @@ Taskmanager
 /data/taskmanager.db
     │
     ▼
-Docker Volume
+Docker-Volume
 taskmanager-data
 
 Damit liegt die Datenbank nicht im flüchtigen Container-Layer.
@@ -237,11 +237,11 @@ Projektverzeichnis auf dem Host
         │
         │ COPY original.txt /test/original.txt
         ▼
-Docker Image
+  Docker Image
         │
         │ docker run
         ▼
-Container
+    Container
         │
         └── /test/original.txt
 
@@ -249,7 +249,7 @@ Die Datei im Projektverzeichnis bleibt dabei unabhängig von der Datei im Image 
 
 ## Ein leeres Volume wird erstmals eingebunden
 
-Anschließend wurde ein neues Docker Volume erstellt:
+Anschließend wurde ein neues Docker-Volume erstellt:
 
 ```bash
 docker volume create mount-copy-test
@@ -277,7 +277,7 @@ docker run --rm \
   ls -l /test
 ```
 
-Es wird 'original.txt' angezeigt. Alpine selbst enthält diese Datei nicht. Damit wurde praktisch nachgewiesen, dass sich original.txt inzwischen im Docker Volume befindet.
+Es wird 'original.txt' angezeigt. Alpine selbst enthält diese Datei nicht. Damit wurde praktisch nachgewiesen, dass sich original.txt inzwischen im Docker-Volume befindet.
 
 Vereinfacht:
 
@@ -373,14 +373,14 @@ Eigenschaften:
 - wird beim Löschen des Containers entfernt
 - für flüchtige Laufzeitdaten geeignet
 
-Docker Volume
+Docker-Volume
 Container
     │
     ▼
   /data
     │
     ▼
-Docker Volume
+Docker-Volume
     │
     └── taskmanager.db
 
@@ -394,22 +394,22 @@ Eigenschaften:
 
 ## Bind Mount und Volume
 
-Auch die bereits zuvor untersuchten Bind Mounts lassen sich jetzt in das Gesamtmodell einordnen.
+Auch die bereits zuvor untersuchten Bind-Mounts lassen sich jetzt in das Gesamtmodell einordnen.
 
-Bind Mount
+Bind-Mount
 Host-Dateisystem
 /home/kath/.../taskmanager.db
             │
             ▼
-       Bind Mount
+       Bind-Mount
             │
             ▼
 Container:/data/taskmanager.db
 
 Ein konkreter Host-Pfad wird verwendet.
 
-Docker Volume
-Docker Host
+Docker-Volume
+Docker-Host
     │
     ▼
 Docker verwalteter Storage
@@ -424,7 +424,7 @@ Beim Volume wird der Speicher von Docker verwaltet. Beide Varianten befinden sic
 
 ## Security-Zusammenhang
 
-Die Unterscheidung zwischen Container-Layer und Mounts ist auch unter Sicherheitsgesichtspunkten relevant. Beim Taskmanager wurde bewusst zwischen Anwendungscode und veränderlichen Daten getrennt:
+Die Unterscheidung zwischen Container-Layer und -Mounts ist auch unter Sicherheitsgesichtspunkten relevant. Beim Taskmanager wurde bewusst zwischen Anwendungscode und veränderlichen Daten getrennt:
 
 /app
     │
@@ -492,7 +492,7 @@ Container-Layer   Container-Layer
              Mount
                │
                ▼
-         Docker Volume
+         Docker-Volume
                │
                ▼
         persistente Daten
@@ -527,7 +527,7 @@ Der Taskmanager verwendet inzwischen das folgende Modell:
       ▼
 Anwendungscode
 
-Der Anwendungscode befindet sich im Image beziehungsweise Container-Dateisystem. Die Datenbank befindet sich dagegen im persistenten Docker Volume. Dadurch können Container ersetzt werden, ohne dass die Datenbank verloren geht. Das wurde bereits praktisch überprüft:
+Der Anwendungscode befindet sich im Image beziehungsweise Container-Dateisystem. Die Datenbank befindet sich dagegen im persistenten Docker-Volume. Dadurch können Container ersetzt werden, ohne dass die Datenbank verloren geht. Das wurde bereits praktisch überprüft:
 
 Taskmanager-Container A
         │
@@ -549,12 +549,12 @@ Aufgabe weiterhin vorhanden
 
 Dieser Lernschritt hat das Verständnis des Container-Dateisystems von einzelnen Docker-Konzepten zu einem zusammenhängenden Modell erweitert.
 
-- Ein Docker Image stellt die unveränderliche Grundlage bereit.
+- Ein Docker-Image stellt die unveränderliche Grundlage bereit.
 - Ein Container erhält zusätzlich einen eigenen beschreibbaren Container-Layer. Dieser 
   Layer gehört zum Lebenszyklus des Containers und ist deshalb für dauerhafte Daten ungeeignet.
 - Mounts ermöglichen es dagegen, externen Speicher innerhalb des Containers 
 - bereitzustellen.
-- Bei einem Docker Volume verwaltet Docker den Speicher und dessen Einbindung. 
+- Bei einem Docker-Volume verwaltet Docker den Speicher und dessen Einbindung. 
 - Das Volume besitzt einen vom Container unabhängigen Lebenszyklus.
 
 Eine wichtige Besonderheit wurde ebenfalls praktisch nachgewiesen:

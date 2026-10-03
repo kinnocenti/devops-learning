@@ -1,6 +1,6 @@
 # Container-Dateisystem, Image-Layer und Copy-on-Write
 
-Nachdem die Unterschiede zwischen Bind Mounts und Docker Volumes praktisch untersucht wurden, wird im nächsten Schritt betrachtet, wie das Dateisystem eines Containers grundsätzlich aufgebaut ist. Dabei wird insbesondere der Zusammenhang zwischen Image-Layern, dem beschreibbaren Container-Layer und persistentem Storage betrachtet.
+Nachdem die Unterschiede zwischen Bind-Mounts und Docker-Volumes praktisch untersucht wurden, wird im nächsten Schritt betrachtet, wie das Dateisystem eines Containers grundsätzlich aufgebaut ist. Dabei wird insbesondere der Zusammenhang zwischen Image-Layern, dem beschreibbaren Container-Layer und persistentem Storage betrachtet.
 
 Das bisherige Modell:
 
@@ -12,7 +12,7 @@ Dockerfile
 
 wird dadurch erweitert:
 
-Docker Image
+Docker-Image
     │
     ├── Image-Layer
     │
@@ -21,13 +21,13 @@ beschreibbarer Container-Layer
     │
     ├── /app
     │
-    └── /data → Docker Volume
+    └── /data → Docker-Volume
 
 Damit lässt sich besser verstehen, warum Änderungen innerhalb eines Containers möglich sind, obwohl die zugrunde liegenden Image-Layer unveränderlich bleiben.
 
 ## Image-Layer
 
-Ein Docker Image besteht aus mehreren Layern. Diese entstehen unter anderem durch die Anweisungen im Dockerfile und enthalten die für die Anwendung benötigten Dateien und Bestandteile der Laufzeitumgebung.
+Ein Docker-Image besteht aus mehreren Layern. Diese entstehen unter anderem durch die Anweisungen im Dockerfile und enthalten die für die Anwendung benötigten Dateien und Bestandteile der Laufzeitumgebung.
 
 Beim Taskmanager wird beispielsweise mit ```bash FROM python:3.12-slim-trixie ``` ein bestehendes Base Image verwendet. Weitere Anweisungen des Dockerfiles fügen anschließend benötigte Dateien und Abhängigkeiten hinzu.
 
@@ -102,9 +102,7 @@ beschreibbarer Container-Layer
         ▼
 Container sieht die geänderte Version
 
-Das Image selbst bleibt weiterhin unverändert.
-
-Dieses Verhalten kann praktisch mit einem Alpine-Container untersucht werden. Dafür wird mit dem folgenden Befehl ein Alpine-Container erstellt:
+Das Image selbst bleibt weiterhin unverändert. Dieses Verhalten kann praktisch mit einem Alpine-Container untersucht werden. Dafür wird mit dem folgenden Befehl ein Alpine-Container erstellt:
 
 ```bash
 docker run -it --name cow-test alpine sh
@@ -318,4 +316,4 @@ Docker Image
             ▼
       taskmanager.db
 
-Der nächste Lernschritt kann damit auf einem erweiterten Verständnis des Container-Dateisystems aufbauen. Anschließend können die bisher einzeln untersuchten Komponenten – Container, Netzwerk, Storage und mehrere Dienste – mit Docker Compose zu einer gemeinsamen Anwendungskonfiguration zusammengeführt werden.
+Der nächste Lernschritt kann damit auf einem erweiterten Verständnis des Container-Dateisystems aufbauen. Anschließend können die bisher einzeln untersuchten Komponenten – Container, Netzwerk, Storage und mehrere Dienste – mit Docker-Compose zu einer gemeinsamen Anwendungskonfiguration zusammengeführt werden.

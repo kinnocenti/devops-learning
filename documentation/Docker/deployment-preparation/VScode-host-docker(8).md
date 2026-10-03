@@ -121,7 +121,7 @@ Wird anschließend die Datei im Projektverzeichnis über VScode verändert:
     Host-Dateisystem
             │
             ▼
-/home/kath/.../original.txt
+/home/.../original.txt
 
 ändert sich nur die Datei im Host-Projektverzeichnis. Die bereits gebaute Image-Version bleibt unverändert.
 
