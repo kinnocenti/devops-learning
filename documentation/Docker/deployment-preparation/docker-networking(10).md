@@ -1,7 +1,5 @@
 # Docker Networking – Container-Kommunikation und benutzerdefiniertes Bridge-Netzwerk
 
-## Ausgangspunkt
-
 Nach der Untersuchung grundlegender Docker-Netzwerke wird die Container-zu-Container-Kommunikation weiter untersucht. Für die weiteren Tests sollte ein eigenes Netzwerk verwendet werden. Dadurch bleiben die Netzwerkkonfigurationen der Tests von dem bereits bestehenden 'taskmanager-net' getrennt.
 
 Das Vorgehen folgt dabei weiterhin dem Prinzip:
