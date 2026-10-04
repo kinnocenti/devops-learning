@@ -173,6 +173,7 @@ SELECT *
 FROM tasks;
 
 SELECT *
+
 FROM groups;
 
 UPDATE tasks

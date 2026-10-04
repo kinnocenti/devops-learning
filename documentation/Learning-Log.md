@@ -147,3 +147,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 01.10.2026
 
 - Docker-Netzwerke – Grundlagen, Bridge-Netzwerk und Container-Kommunikation
+
+## 04.10.2026
+
+- Docker Networking – Container-Kommunikation (per HTTP)

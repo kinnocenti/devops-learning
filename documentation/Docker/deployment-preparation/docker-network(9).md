@@ -340,7 +340,13 @@ Auffällig ist hierbei, dass der Containername 'network-test' dort nicht als Auf
 
 ## Benutzerdefiniertes Bridge-Netzwerk
 
-Anschließend wurde ein eigenes Docker-Netzwerk für den Taskmanager verwendet. Das Netzwerk taskmanager-net besitzt ebenfalls den Driver 'bridge'. Damit entstand zunächst die Frage, warum ein benutzerdefiniertes Bridge-Netzwerk Namensauflösung zwischen Containern ermöglicht, obwohl auch das Standardnetzwerk 'bridge' denselben Driver verwendet.
+Anschließend wird ein eigenes Docker-Netzwerk für den Taskmanager verwendet. Das Netzwerk wird mit folgendem Befehl erstellt:
+
+```bash
+docker network create taskmanager-net
+```
+
+Das Netzwerk 'taskmanager-net' besitzt ebenfalls den Driver 'bridge'. Damit entstand zunächst die Frage, warum ein benutzerdefiniertes Bridge-Netzwerk Namensauflösung zwischen Containern ermöglicht, obwohl auch das Standardnetzwerk 'bridge' denselben Driver verwendet.
 Der entscheidende Unterschied liegt darin, dass der bridge-Driver nicht bedeutet, dass jedes konkrete Bridge-Netzwerk exakt dieselben Docker-Funktionen und Standardeinstellungen besitzt.
 
 Vereinfacht:
@@ -488,7 +494,7 @@ taskmanager-data
 
 Mit einer separaten Datenbank als eigenständigem Dienst würde das Modell erweitert:
 
-                    Docker Host
+                    Docker-Host
                          │
                          │ Port Publishing
                          ▼
@@ -515,7 +521,7 @@ Container
     │
     ├── Storage
     │      │
-    │      └── Docker Volume
+    │      └── Docker-Volume
     │
     └── Port Publishing
            │
@@ -536,7 +542,7 @@ Das bisherige Docker-Modell auf Netzwerkebene:
              │                    ┌────────────┴────────────┐
              │                    │                         │
              ▼                    ▼                         ▼
-         VS Code            Taskmanager              Datenbank
+         VScode            Taskmanager              Datenbank
                             Container                Container
                                 │                         │
                                 │                         │
