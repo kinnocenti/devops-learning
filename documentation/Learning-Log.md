@@ -151,3 +151,11 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 04.10.2026
 
 - Docker Networking – Container-Kommunikation (per HTTP)
+
+## 05.10.2026
+
+- Webserver-Exkurs (Teil 1)
+
+## 07.10.2026
+
+- Webserver-Exkurs (Teil 2)
