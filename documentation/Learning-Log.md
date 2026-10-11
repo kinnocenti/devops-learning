@@ -159,3 +159,7 @@ Hinweis: Im Learning Log wird nicht die Erstellung von Dokumentationen und erarb
 ## 07.10.2026
 
 - Webserver-Exkurs (Teil 2)
+
+## 11.10.2026
+
+- Was ist Docker-Compose?
