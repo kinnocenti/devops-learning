@@ -70,13 +70,13 @@ Compose beschreibt den gewünschten Zustand des Anwendungsstacks in einer YAML-K
 
 Beim Stoppen eines Containers bleiben der Container und sein beschreibbarer Layer grundsätzlich erhalten. Beim Entfernen des Containers wird auch sein beschreibbarer Layer entfernt. Ein vorhandenes Image und ein separates Docker-Volume bleiben beim Löschen eines Containers grundsätzlich erhalten, sofern sie nicht unabhängig davon entfernt werden.
 
-Ressource	                    | Container stoppen | Container entfernen
+Ressource	                | Container stoppen | Container entfernen
 -----------------------------------------------------------------------------------
-Image	                        | bleibt erhalten	| bleibt grundsätzlich erhalten
-Container	                    | bleibt bestehen	| wird entfernt
-Beschreibbarer Container-Layer	| bleibt erhalten	| wird entfernt
-Docker Volume	                | bleibt erhalten	| bleibt grundsätzlich erhalten
-Datenbankdatei im Volume	    | bleibt erhalten	| bleibt erhalten
+Image	                        | bleibt erhalten   | bleibt grundsätzlich erhalten
+Container	                | bleibt bestehen   | wird entfernt
+Beschreibbarer Container-Layer	| bleibt erhalten   | wird entfernt
+Docker Volume	                | bleibt erhalten   | bleibt grundsätzlich erhalten
+Datenbankdatei im Volume	| bleibt erhalten   | bleibt erhalten
 
 Beim erneuten Start eines Services kann Compose vorhandene Container starten oder falls erforderlich Container neu erstellen. Das konkrete Verhalten hängt vom verwendeten Befehl und der vorhandenen Konfiguration ab.
 
@@ -90,7 +90,7 @@ Docker-Compose	| Deklariert und verwaltet den zusammengehörigen Anwendungsstack
 Docker-Engine	| Stellt die Container-Laufzeit und die zugehörigen Docker-Ressourcen  
                 | bereit
 Image	        | Liefert die Grundlage für einen Container
-Container	    | Führt die Anwendung in einer isolierten Laufzeitumgebung aus
+Container	| Führt die Anwendung in einer isolierten Laufzeitumgebung aus
 Docker-Volume	| Speichert Daten unabhängig vom Container-Lebenszyklus
 
 Compose vereinfacht die Verwaltung des Stacks, ersetzt aber weder die Docker-Engine noch die erforderlichen Architektur- und Sicherheitsentscheidungen.

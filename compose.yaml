@@ -1,0 +1,19 @@
+services:
+  taskmanager:
+    build:
+      context: ./taskmanager
+      dockerfile: Dockerfile
+    ports:
+      - "3001:5000"
+    volumes:
+      - taskmanager-data:/data
+    networks:
+      - taskmanager-net
+
+volumes:
+  taskmanager-data:
+    external: true
+
+networks:
+  taskmanager-net:
+    external: true
